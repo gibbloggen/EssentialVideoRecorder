@@ -1,26 +1,45 @@
-﻿using System;
+﻿/*
+            Program: Essential Vidoe Recorder
+            Author:  John Leone
+            Email:   gibbloggen@gmail.com
+            Date:    9-10-2016
+            License: MIT License
+            Purpose: A Universal Windows app for both win 10 desktop and mobile
+
+
+
+The MIT License (MIT) 
+Copyright (c) <2016> <John Leone, gibbloggen@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+References for this program,,,
+
+1)   https://msdn.microsoft.com/en-us/windows/uwp/audio-video-camera/camera  Took bits and pieces of this very helpful
+2)   https://github.com/Microsoft/Windows-universal-samples   This also has mmany of the ingredients; however, it is a little tricky to pry it to stand alone.
+
+
+*/
+
+
+
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using Windows.Media.Capture;
 using Windows.Media.Editing;
 using Windows.Media.Core;
 using Windows.Storage;
 using Windows.Media.MediaProperties;
-using System.Threading.Tasks;
-using Windows.Devices.Enumeration;
 using System.Diagnostics;
-using Windows.UI.Core;
 using Windows.Storage.Pickers;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -28,24 +47,19 @@ using Windows.Storage.Pickers;
 namespace EssentialVideoRecorder
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// It is only this page, this is a very simple app, but it provides a bit of a need.
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        MediaComposition mediaComposition;
-        MediaStreamSource mediaStreamSource;
-        MediaCapture _mediaCapture;
-        MediaClip mediaClip;
-        StorageFolder videoFolder = null;
-        StorageFile videoFile = null;
-        private MediaEncodingProfile _encodingProfile;
-        LowLagMediaRecording _mediaRecording;
-        bool _isPreviewing;
-        MediaElement mediaElement;
-        StorageFolder captureFolder;
-        bool isRecording = false;
+       
+        MediaCapture _mediaCapture;  //This is the basic capture that you pass to the xaml
+        StorageFile videoFile = null;  // This is the file that it will record to.  Changeable by user.
+        private MediaEncodingProfile _encodingProfile;  //These are setting attributes, going to do more with these in the future.
+        LowLagMediaRecording _mediaRecording;  //This is from one of the posts, it stems off diagnostics, something that will need to be beefed up.
+        StorageFolder captureFolder;  //This defaults to the videos folder, that it has perms for.  OpenPicker, allows the user to save anywhere.
+        bool isRecording = false;  // recording flag, not fully utilized yet.
 
-        private static readonly Guid RotationKey = new Guid("C380465D-2271-428C-9B83-ECEA3B4A85C1");
+        private static readonly Guid RotationKey = new Guid("C380465D-2271-428C-9B83-ECEA3B4A85C1");  //I have no idea what this is, but you need it :-)
 
 
 
@@ -71,29 +85,9 @@ namespace EssentialVideoRecorder
             await _mediaCapture.InitializeAsync();
             _mediaCapture.Failed += _mediaCapture_Failed;
 
-          //  mediaComposition = new MediaComposition();
-          //  CameraCaptureUI captureUI = new CameraCaptureUI();
-            //captureUI.VideoSettings.Format = CameraCaptureUIVideoFormat.Mp4;
-//
             _mediaCapture.RecordLimitationExceeded += MediaCapture_RecordLimitationExceeded;
 
-         //   StorageFile videoFile = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Video);
-
-      //      if (videoFile == null)
-      //      {
-                // User cancelled photo capture
-     //           return;
-    //        }
-
-      //      MediaClip mediaClip = await MediaClip.CreateFromFileAsync(videoFile);
-
-      //      mediaComposition.Clips.Add(mediaClip);
-      // //     mediaStreamSource = mediaComposition.GeneratePreviewMediaStreamSource(
-     //           (int)mediaElement.ActualWidth,
-     //           (int)mediaElement.ActualHeight);
-
-     ///       mediaElement.SetMediaStreamSource(mediaStreamSource);
-
+   
             GetTheVideo.Source = _mediaCapture;
 
             await _mediaCapture.StartPreviewAsync();
@@ -158,7 +152,7 @@ namespace EssentialVideoRecorder
 
         private async void MediaCapture_RecordLimitationExceeded(MediaCapture sender)
         {
-            await _mediaRecording.StopAsync();
+            await _mediaRecording.StopAsync(); 
             System.Diagnostics.Debug.WriteLine("Record limitation exceeded.");
 
         }
