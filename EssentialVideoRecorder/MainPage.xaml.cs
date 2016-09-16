@@ -120,6 +120,26 @@ namespace EssentialVideoRecorder
                 // Add it to the encoding profile, or edit the value if the GUID was already a part of the properties
                  _encodingProfile.Video.Properties[RotationKey] = PropertyValue.CreateInt32(rotationAngle);
 
+
+                if (videoFile.IsAvailable)  // this is just saying, hey, we got a file
+                {
+
+                    //These next three lines are just to create a 00:00:00 timespan, which is the duration of a new file
+                    DateTime date1 = new DateTime(2010, 1, 1, 8, 0, 15);
+                    DateTime date2 = new DateTime(2010, 1, 1, 8, 0, 15);
+                    TimeSpan interval = date2 - date1;
+                    
+                    //this here extracts the properties of the file....
+                    Windows.Storage.FileProperties.VideoProperties j = await videoFile.Properties.GetVideoPropertiesAsync();
+                    if (j.Duration ==  interval )
+                    {
+                        //do nothing
+                    } else
+                    {
+                        int g = 7;
+                    }
+                }
+
                 Debug.WriteLine("Starting recording to " + videoFile.Path);
 
                 await _mediaCapture.StartRecordToStorageFileAsync(_encodingProfile, videoFile);
