@@ -41,6 +41,7 @@ using Windows.Storage;
 using Windows.Media.MediaProperties;
 using System.Diagnostics;
 using Windows.Storage.Pickers;
+using System.Linq;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -58,7 +59,7 @@ namespace EssentialVideoRecorder
         LowLagMediaRecording _mediaRecording;  //This is from one of the posts, it stems off diagnostics, something that will need to be beefed up.
         StorageFolder captureFolder;  //This defaults to the videos folder, that it has perms for.  OpenPicker, allows the user to save anywhere.
         bool isRecording = false;  // recording flag, not fully utilized yet.
-
+        int incognitoer = 0;
         private static readonly Guid RotationKey = new Guid("C380465D-2271-428C-9B83-ECEA3B4A85C1");  //I have no idea what this is, but you need it :-)
 
 
@@ -92,11 +93,64 @@ namespace EssentialVideoRecorder
 
             await _mediaCapture.StartPreviewAsync();
 
+            PopulateSettingsComboBox();
+
+
         }
 
+        private async void ComboBoxSettings_Changed(object sender, RoutedEventArgs e)
+        {
+            if (!isRecording)
+            {
+                var selectedItem = (sender as ComboBox).SelectedItem as ComboBoxItem;
+
+                Resolutions encoderize = selectedItem.Tag as Resolutions;
+
+
+                Versatile.Height = encoderize.Height;
+                Versatile.Width = encoderize.Width;
+
+               
+
+              // await _mediaCapture.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.VideoPreview, encodingProperties);
+            }
+        }
+
+        private void PopulateSettingsComboBox()
+        {
+            Resolutions[] myResolutions = new Resolutions[4];
+             for(int i = 1; i< 5; i++)
+            {
+                int x = i * 160;
+                int y = i * 120;
+              Resolutions j = new Resolutions();
+                j.ToSee = x + " x " + y;
+                j.Height = y;
+                j.Width = x;
+                myResolutions[i-1] = j;
+            }
+
+
+
+            // Query all properties of the device
+           // IEnumerable<StreamResolution> allProperties = _mediaCapture.VideoDeviceController.GetAvailableMediaStreamProperties(MediaStreamType.VideoPreview).Select(x => new StreamResolution(x));
+
+            // Order them by resolution then frame rate
+           // allProperties = allProperties.OrderByDescending(x => x.Height * x.Width).ThenByDescending(x => x.FrameRate);
+
+            // Populate the combo box with the entries
+            foreach (Resolutions resolution in myResolutions)
+            {
+                ComboBoxItem comboBoxItem = new ComboBoxItem();
+                comboBoxItem.Content = resolution.ToSee;
+                comboBoxItem.Tag = resolution;
+                CameraSettings.Items.Add(comboBoxItem);
+            }
+        }
         private async void _mediaCapture_Failed(MediaCapture sender, MediaCaptureFailedEventArgs errorEventArgs)
         {
             await _mediaRecording.StopAsync();
+            isRecording = false;
             System.Diagnostics.Debug.WriteLine("Media Capture Failed");
         }
 
@@ -104,10 +158,12 @@ namespace EssentialVideoRecorder
         {
             try
             {
+                isRecording = true;
                 startRecording.Visibility = Visibility.Collapsed;
                 _encodingProfile = MediaEncodingProfile.CreateMp4(VideoEncodingQuality.Auto);
                 // Create storage file for the capture
 
+               
 
                 if (videoFile == null)
                 {
@@ -118,7 +174,7 @@ namespace EssentialVideoRecorder
                 //var rotationAngle = 360 - ConvertDeviceOrientationToDegrees(GetCameraOrientation());
                 var rotationAngle = 0;
                 // Add it to the encoding profile, or edit the value if the GUID was already a part of the properties
-                 _encodingProfile.Video.Properties[RotationKey] = PropertyValue.CreateInt32(rotationAngle);
+                // _encodingProfile.Video.Properties[RotationKey] = PropertyValue.CreateInt32(rotationAngle);
 
 
                 if (videoFile.IsAvailable)  // this is just saying, hey, we got a file
@@ -151,6 +207,7 @@ namespace EssentialVideoRecorder
             catch (Exception ex)
             {
                 // File I/O errors are reported as exceptions
+                isRecording = false;
                 Debug.WriteLine(ex.Message);
 
             }
@@ -158,6 +215,7 @@ namespace EssentialVideoRecorder
 
         private async void stopRecording_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            isRecording = false;
             try
             {
                 stopRecording.Visibility = Visibility.Collapsed;
@@ -174,7 +232,7 @@ namespace EssentialVideoRecorder
         {
             await _mediaRecording.StopAsync(); 
             System.Diagnostics.Debug.WriteLine("Record limitation exceeded.");
-
+            isRecording = false;
         }
 
         private async  void GetFileName_Tapped(object sender, TappedRoutedEventArgs e)
@@ -190,5 +248,75 @@ namespace EssentialVideoRecorder
                 VideoName.Text = videoFile.Name;
             }
         }
+
+        private void Reset_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+            Versatile.Height = 480;
+            Versatile.Width = 640;
+
+        }
+
+        private void Incognito_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Reset.Visibility = Visibility.Collapsed;
+            Incognito.Visibility = Visibility.Collapsed;
+            VideoName.Visibility = Visibility.Collapsed;
+            GetFileName.Visibility = Visibility.Collapsed;
+            startRecording.Visibility = Visibility.Collapsed;
+            stopRecording.Visibility = Visibility.Collapsed;
+            CameraSettings.Visibility = Visibility.Collapsed;
+            BadBorder.Visibility = Visibility.Collapsed;
+            VideoName.Width = 10;
+            startRecording.Width = 10;
+            stopRecording.Width = 10;
+            CameraSettings.Width = 10;
+            incognitoer = 1;
+
+
+
+            Windows.UI.Xaml.Controls.Frame j = (Windows.UI.Xaml.Controls.Frame) VersatilePage.Parent;
+
+            Windows.UI.Xaml.Controls.Border z = (Windows.UI.Xaml.Controls.Border) j.Parent;
+
+           Windows.UI.Xaml.Controls.ScrollViewer r = (Windows.UI.Xaml.Controls.ScrollViewer ) z.Parent;
+
+            var g = r.Parent;
+
+         //   r.Height = 100;
+          //  r.Width = 100;
+            
+        }
+
+        private void Versatile_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if(incognitoer == 2)
+            {
+                incognitoer = 0;
+                Reset.Visibility = Visibility.Visible;
+                Incognito.Visibility = Visibility.Visible;
+                VideoName.Visibility = Visibility.Visible;
+                GetFileName.Visibility = Visibility.Visible;
+                startRecording.Visibility = Visibility.Visible;
+                stopRecording.Visibility = Visibility.Visible;
+                CameraSettings.Visibility = Visibility.Visible;
+                BadBorder.Visibility = Visibility.Visible;
+                VideoName.Width = 200;
+                startRecording.Width = 200;
+                stopRecording.Width = 200;
+                CameraSettings.Width = 250;
+            }
+            if (incognitoer == 1) incognitoer = 2;
+        }
+    }
+
+    class Resolutions
+    {
+        public string ToSee;
+        public int Width;
+        public int Height;
+        
+       
+
     }
 }

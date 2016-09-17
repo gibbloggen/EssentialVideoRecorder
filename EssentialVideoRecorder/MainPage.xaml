@@ -5,7 +5,11 @@
     xmlns:local="using:EssentialVideoRecorder"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Name="VersatilePage"
+   
+    Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center"
+    >
 
     <Page.Resources>
         <SolidColorBrush x:Key="TranslucentBlackBrush" Color="Black" Opacity="0.3"/>
@@ -69,9 +73,9 @@
 
 
     </Page.Resources>
+    
 
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="Versatile" Tapped="Versatile_Tapped" >
         <Grid.Resources>
 
             
@@ -83,14 +87,12 @@
 
         <StackPanel  Orientation="Vertical" Margin="55,25,0,0">
             <StackPanel Orientation="Horizontal">
+                <Button Name="Reset" Template="{StaticResource HoveringButton}" Width="52" Content="Reset" Tapped="Reset_Tapped"/>
+                <Button Name="Incognito" Template="{StaticResource HoveringButton}" Width="75" Content="Incognito" Tapped="Incognito_Tapped"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
                 
-                    <!--<Border BorderThickness="1" BorderBrush="Black" CornerRadius="3" Padding="2"  Background="#FFC9C4C4"   HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBox Width="84" Height="25"  BorderThickness="0"  IsReadOnly="True"  Background="#FFC9C4C4" Foreground="Black" Opacity="1.0" Text="File Name" BorderBrush="#FF151313"  />
-
-                       <TextBox Text="Hello ! " BorderThickness="0"/>
-
-                    </Border-->
-                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="3" Padding="2"  Background="#FFE8E6E6"   HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Border Name="BadBorder" BorderThickness="1" BorderBrush="Black" CornerRadius="3" Padding="2"  Background="#FFE8E6E6"   HorizontalAlignment="Center" VerticalAlignment="Center">
 
                         <TextBox  Name="VideoName" BorderThickness="0" IsReadOnly="True"  Background="#FFE8E6E6" Foreground="Black" Text="EssentialVideoFileName" Width="200" Height="25"   Opacity="0.75"></TextBox>
                     </Border>
@@ -102,11 +104,11 @@
 
             </StackPanel>
             <Button Template="{StaticResource HoveringButton}" Margin="0,98,0,0" Width="200" Name="startRecording"  Tapped="startRecording_Tapped">Start Recording</Button>
-            <Button Template="{StaticResource HoveringButton}"  Margin="0,98,0,0" Width="200" Name="stopRecording" Tapped="stopRecording_Tapped">Stop Recording</Button>
+            <Button Template="{StaticResource HoveringButton}"  Margin="0,46,0,0" Width="200" Name="stopRecording" Tapped="stopRecording_Tapped">Stop Recording</Button>
+            <ComboBox Name="CameraSettings" PlaceholderText="Video Size" Width="250" Margin="0,46,0,0" SelectionChanged="ComboBoxSettings_Changed"  />
 
 
 
-           
         </StackPanel>
     </Grid>
 </Page>
