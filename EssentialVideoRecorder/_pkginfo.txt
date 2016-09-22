@@ -1,1 +1,1 @@
-C:\Users\gibbl\OneDrive\GitHub\EssentialVideoRecorder\EssentialVideoRecorder\AppPackages\EssentialVideoRecorder_0.1.0.0\EssentialVideoRecorder_0.1.0.0_x86_x64_arm.appxbundle
+C:\Users\gibbl\OneDrive\GitHub\EssentialVideoRecorder\EssentialVideoRecorder\AppPackages\EssentialVideoRecorder_0.3.1.0\EssentialVideoRecorder_0.3.1.0_x86_x64.appxbundle

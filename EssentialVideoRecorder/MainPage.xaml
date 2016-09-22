@@ -14,7 +14,7 @@
     <Page.Resources>
         <SolidColorBrush x:Key="TranslucentBlackBrush" Color="Black" Opacity="0.3"/>
 
-        
+
         <!-- This HoveringButton Template comes from this StackOverflow Thread-->
         <!-- http://stackoverflow.com/questions/39502204/rounded-buttons-in-xaml-for-a-window-store-app/39521967#39521967  -->
         <ControlTemplate x:Name="HoveringButton" TargetType="Button">
@@ -73,40 +73,43 @@
 
 
     </Page.Resources>
-    
+
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="Versatile" Tapped="Versatile_Tapped" >
         <Grid.Resources>
 
-            
+
 
         </Grid.Resources>
 
 
         <CaptureElement Name="GetTheVideo" Stretch="Uniform"></CaptureElement>
 
-        <StackPanel  Orientation="Vertical" Margin="55,25,0,0">
+        <StackPanel  Orientation="Vertical" Margin="42,25,0,0">
             <StackPanel Orientation="Horizontal">
                 <Button Name="Reset" Template="{StaticResource HoveringButton}" Width="52" Content="Reset" Tapped="Reset_Tapped"/>
                 <Button Name="Incognito" Template="{StaticResource HoveringButton}" Width="75" Content="Incognito" Tapped="Incognito_Tapped"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                
-                    <Border Name="BadBorder" BorderThickness="1" BorderBrush="Black" CornerRadius="3" Padding="2"  Background="#FFE8E6E6"   HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                        <TextBox  Name="VideoName" BorderThickness="0" IsReadOnly="True"  Background="#FFE8E6E6" Foreground="Black" Text="EssentialVideoFileName" Width="200" Height="25"   Opacity="0.75"></TextBox>
-                    </Border>
-               
-                
-                    <Button Width="45" Height="42"  Name="GetFileName" VerticalAlignment="Top" VerticalContentAlignment="Top"  BorderThickness="0" FontSize="16"  Foreground="Black" Tapped="GetFileName_Tapped" Background="#FFB8B1B1" Template="{StaticResource HoveringButton}"  >Pick</Button>
-            
-                
+                <Border Name="BadBorder" BorderThickness="1" BorderBrush="Black" CornerRadius="3" Padding="2"  Background="#FFE8E6E6"   HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                    <TextBox  Name="VideoName" BorderThickness="0" IsReadOnly="True"  Background="#FFE8E6E6" Foreground="Black" Text="EssentialVideoFileName" Width="200" Height="25"   Opacity="0.75"></TextBox>
+                </Border>
+
+
+                <Button Width="45" Height="42"  Name="GetFileName" VerticalAlignment="Top" VerticalContentAlignment="Top"  BorderThickness="0" FontSize="16"  Foreground="Black" Tapped="GetFileName_Tapped" Background="#FFB8B1B1" Template="{StaticResource HoveringButton}"  >Pick</Button>
+
+
 
             </StackPanel>
-            <Button Template="{StaticResource HoveringButton}" Margin="0,98,0,0" Width="200" Name="startRecording"  Tapped="startRecording_Tapped">Start Recording</Button>
-            <Button Template="{StaticResource HoveringButton}"  Margin="0,46,0,0" Width="200" Name="stopRecording" Tapped="stopRecording_Tapped">Stop Recording</Button>
-            <ComboBox Name="CameraSettings" PlaceholderText="Video Size" Width="250" Margin="0,46,0,0" SelectionChanged="ComboBoxSettings_Changed"  />
-
+           
+                <ComboBox x:Name="CameraSource" PlaceholderText="Video Devices" Width="250" Margin="0,42,0,0" SelectionChanged="Devicechanged_Changed"  />
+                <ComboBox Name="CameraSettings" PlaceholderText="Video Size" Width="250" Margin="0,42,0,0" SelectionChanged="ComboBoxSettings_Changed"  />
+           
+            <Button Template="{StaticResource HoveringButton}" Margin="0,42,0,0" Width="200" Name="startRecording"  Tapped="startRecording_Tapped">Start Recording</Button>
+            <Button Template="{StaticResource HoveringButton}"  Margin="0,42,0,0" Width="200" Name="stopRecording" Tapped="stopRecording_Tapped">Stop Recording</Button>
+           
 
 
         </StackPanel>
