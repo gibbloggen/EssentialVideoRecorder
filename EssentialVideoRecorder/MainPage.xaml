@@ -87,29 +87,29 @@
 
         <StackPanel  Orientation="Vertical" Margin="42,25,0,0">
             <StackPanel Orientation="Horizontal">
-                <Button Name="Reset" Template="{StaticResource HoveringButton}" Width="52" Content="Reset" Tapped="Reset_Tapped"/>
-                <Button Name="Incognito" Template="{StaticResource HoveringButton}" Width="75" Content="Incognito" Tapped="Incognito_Tapped"/>
+                <Button Name="Reset" x:Uid="ResetButton" Template="{StaticResource HoveringButton}" Width="95" Content="Reset" Tapped="Reset_Tapped"/>
+                <Button Name="Incognito" x:Uid="IncognitoButton" Template="{StaticResource HoveringButton}" Width="85" Content="Incognito" Tapped="Incognito_Tapped"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
 
                 <Border Name="BadBorder" BorderThickness="1" BorderBrush="Black" CornerRadius="3" Padding="2"  Background="#FFE8E6E6"   HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                    <TextBox  Name="VideoName" BorderThickness="0" IsReadOnly="True"  Background="#FFE8E6E6" Foreground="Black" Text="EssentialVideoFileName" Width="200" Height="25"   Opacity="0.75"></TextBox>
+                    <TextBox  Name="VideoName" BorderThickness="0" x:Uid="VideoFileName" IsReadOnly="True"  Background="#FFE8E6E6" Foreground="Black" Text="Video File Name" Width="165" Height="25"   Opacity="0.75"></TextBox>
                 </Border>
 
 
-                <Button Width="45" Height="42"  Name="GetFileName" VerticalAlignment="Top" VerticalContentAlignment="Top"  BorderThickness="0" FontSize="16"  Foreground="Black" Tapped="GetFileName_Tapped" Background="#FFB8B1B1" Template="{StaticResource HoveringButton}"  >Pick</Button>
+                <Button Width="87" Height="42" x:Uid="GetFileName" Name="GetFileName" VerticalAlignment="Top" VerticalContentAlignment="Top"  BorderThickness="0" FontSize="16"  Foreground="Black" Tapped="GetFileName_Tapped" Background="#FFB8B1B1" Template="{StaticResource HoveringButton}"  >Pick</Button>
 
 
 
             </StackPanel>
-           
-                <ComboBox x:Name="CameraSource" PlaceholderText="Video Devices" Width="250" Margin="0,42,0,0" SelectionChanged="Devicechanged_Changed"  />
-                <ComboBox Name="CameraSettings" PlaceholderText="Video Size" Width="250" Margin="0,42,0,0" SelectionChanged="ComboBoxSettings_Changed"  />
-           
-            <Button Template="{StaticResource HoveringButton}" Margin="0,42,0,0" Width="200" Name="startRecording"  Tapped="startRecording_Tapped">Start Recording</Button>
-            <Button Template="{StaticResource HoveringButton}"  Margin="0,42,0,0" Width="200" Name="stopRecording" Tapped="stopRecording_Tapped">Stop Recording</Button>
-           
+
+            <ComboBox x:Name="CameraSource"  x:Uid="CameraSourceCombo"   PlaceholderText="Video Devices" Width="250" Margin="0,42,0,0" SelectionChanged="Devicechanged_Changed"  />
+            <ComboBox Name="CameraSettings" x:Uid="CameraSettingsCombo" PlaceholderText="Video Size" Width="250" Margin="0,42,0,0" SelectionChanged="ComboBoxSettings_Changed"  />
+
+            <Button x:Uid="StartRecordingButton" Template="{StaticResource HoveringButton}" Margin="0,42,0,0" Width="200" Name="startRecording"  Tapped="startRecording_Tapped">Start Recording</Button>
+            <Button x:Uid="StopRecordingButton" Template="{StaticResource HoveringButton}"  Margin="0,42,0,0" Width="200" Name="stopRecording" Tapped="stopRecording_Tapped">Stop Recording</Button>
+
 
 
         </StackPanel>
