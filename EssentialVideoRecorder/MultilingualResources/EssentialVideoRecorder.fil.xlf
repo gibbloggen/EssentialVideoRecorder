@@ -8,7 +8,7 @@
       <group id="ESSENTIALVIDEORECORDER/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
         <trans-unit id="CameraSourceCombo.PlaceholderText" translate="yes" xml:space="preserve">
           <source>Video Devices</source>
-          <target state="new">Video Devices</target>
+          <target state="translated">Devices Video</target>
         </trans-unit>
         <trans-unit id="CameraSettingsCombo.PlaceholderText" translate="yes" xml:space="preserve">
           <source>Video Size</source>
@@ -28,7 +28,7 @@
         </trans-unit>
         <trans-unit id="VideoFilename.Text" translate="yes" xml:space="preserve">
           <source>Video File Name</source>
-          <target state="new">Video File Name</target>
+          <target state="translated">Pangalan File Video</target>
         </trans-unit>
         <trans-unit id="GetFileName.Content" translate="yes" xml:space="preserve">
           <source>Choose</source>
@@ -36,7 +36,15 @@
         </trans-unit>
         <trans-unit id="IncognitoButton.Content" translate="yes" xml:space="preserve">
           <source>Incognito</source>
-          <target state="new">Incognito</target>
+          <target state="translated">nagbabalatkayo</target>
+        </trans-unit>
+        <trans-unit id="Test" translate="yes" xml:space="preserve">
+          <source>This is a Test</source>
+          <target state="new">This is a Test</target>
+        </trans-unit>
+        <trans-unit id="NoCamera.Text" translate="yes" xml:space="preserve">
+          <source>No Camera Found, Camera Required</source>
+          <target state="translated">No Camera Natagpuan, Camera Kinakailangan</target>
         </trans-unit>
       </group>
     </body>

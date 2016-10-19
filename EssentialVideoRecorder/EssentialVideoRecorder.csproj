@@ -101,12 +101,12 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="EssentialVideoRecorder_StoreKey.pfx" />
     <None Include="project.json" />
+    <PRIResource Include="Strings\fil\Resources.resw" />
     <PRIResource Include="Strings\es\Resources.resw" />
     <PRIResource Include="Strings\it\Resources.resw" />
     <PRIResource Include="Strings\hi\Resources.resw" />
     <PRIResource Include="Strings\de\Resources.resw" />
     <PRIResource Include="Strings\fr\Resources.resw" />
-    <PRIResource Include="Strings\fil\Resources.resw" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>

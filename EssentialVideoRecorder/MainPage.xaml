@@ -105,6 +105,9 @@
             </StackPanel>
 
             <ComboBox x:Name="CameraSource"  x:Uid="CameraSourceCombo"   PlaceholderText="Video Devices" Width="250" Margin="0,42,0,0" SelectionChanged="Devicechanged_Changed"  />
+
+            <TextBox FontSize="32" Name="NoCamera" Background="Red" x:Uid="NoCamera" Text="No Camera Found, Camera Required" Visibility="Collapsed" />
+
             <ComboBox Name="CameraSettings" x:Uid="CameraSettingsCombo" PlaceholderText="Video Size" Width="250" Margin="0,42,0,0" SelectionChanged="ComboBoxSettings_Changed"  />
 
             <Button x:Uid="StartRecordingButton" Template="{StaticResource HoveringButton}" Margin="0,42,0,0" Width="200" Name="startRecording"  Tapped="startRecording_Tapped">Start Recording</Button>

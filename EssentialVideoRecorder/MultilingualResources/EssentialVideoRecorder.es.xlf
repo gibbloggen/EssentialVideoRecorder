@@ -38,6 +38,14 @@
           <source>Incognito</source>
           <target state="translated">Incógnito</target>
         </trans-unit>
+        <trans-unit id="Test" translate="yes" xml:space="preserve">
+          <source>This is a Test</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Esto es una prueba</target>
+        </trans-unit>
+        <trans-unit id="NoCamera.Text" translate="yes" xml:space="preserve">
+          <source>No Camera Found, Camera Required</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">No encuentra la cámara, cámara requiere</target>
+        </trans-unit>
       </group>
     </body>
   </file>

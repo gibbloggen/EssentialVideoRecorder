@@ -44,6 +44,10 @@ using Windows.Storage.Pickers;
 using System.Linq;
 using Windows.Devices.Enumeration;
 
+using System.Resources;
+using System.Reflection;
+using Windows.ApplicationModel.Resources;
+
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace EssentialVideoRecorder
@@ -65,7 +69,7 @@ namespace EssentialVideoRecorder
 
 
 
-
+        public ResourceLoader languageLoader;
 
 
         public MainPage()
@@ -73,6 +77,9 @@ namespace EssentialVideoRecorder
             this.InitializeComponent();
 
             InitCamera();
+
+           // languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
+           // string  str = languageLoader.GetString("Test");
 
 
 
@@ -93,6 +100,14 @@ namespace EssentialVideoRecorder
 
             var z = j.Count();
 
+            if (j.Count == 0) //messagebox in all languages, no device.
+            {
+               
+                NoCamera.Visibility = Visibility.Visible;
+                return;
+            }
+
+           
             foreach(DeviceInformation q in j)
             {
                 ComboBoxItem comboBoxItem = new ComboBoxItem();
@@ -378,8 +393,11 @@ namespace EssentialVideoRecorder
             GetTheVideo.Source = _mediaCapture;
 
             await _mediaCapture.StartPreviewAsync();
+
+    
             
         }
+     
     }
 
     class Resolutions

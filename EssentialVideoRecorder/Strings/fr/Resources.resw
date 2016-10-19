@@ -36,4 +36,10 @@
   <data name="IncognitoButton.Content" xml:space="preserve">
     <value>Incognito</value>
   </data>
+  <data name="Test" xml:space="preserve">
+    <value>C'est un test</value>
+  </data>
+  <data name="NoCamera.Text" xml:space="preserve">
+    <value>Pas trouvé de caméra, caméra requis</value>
+  </data>
 </root>
