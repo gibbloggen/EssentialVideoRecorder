@@ -47,6 +47,7 @@ using Windows.Devices.Enumeration;
 using System.Resources;
 using System.Reflection;
 using Windows.ApplicationModel.Resources;
+using Windows.Services.Store;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -70,20 +71,67 @@ namespace EssentialVideoRecorder
 
 
         public ResourceLoader languageLoader;
-
+        private StoreContext context = null;
 
         public MainPage()
         {
             this.InitializeComponent();
 
             InitCamera();
-
-           // languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
-           // string  str = languageLoader.GetString("Test");
+          
+            // languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            // string  str = languageLoader.GetString("Test");
 
 
 
         }
+
+        public async void PurchaseAddOn(string storeId)
+        {
+            if (context == null)
+            {
+                context = StoreContext.GetDefault();
+            }
+
+            workingProgressRing.IsActive = true;
+            StorePurchaseResult result = await context.RequestPurchaseAsync(storeId);
+            workingProgressRing.IsActive = false;
+
+            if (result.ExtendedError != null)
+            {
+                // The user may be offline or there might be some other server failure.
+                storeResult.Text = $"ExtendedError: {result.ExtendedError.Message}";
+                return;
+            }
+
+            switch (result.Status)
+            {
+                case StorePurchaseStatus.AlreadyPurchased:
+                    storeResult.Text = "The user has already purchased the product.";
+                    break;
+
+                case StorePurchaseStatus.Succeeded:
+                    storeResult.Text = "The purchase was successful.";
+                    break;
+
+                case StorePurchaseStatus.NotPurchased:
+                    storeResult.Text = "The user cancelled the purchase.";
+                    break;
+
+                case StorePurchaseStatus.NetworkError:
+                    storeResult.Text = "The purchase was unsuccessful due to a network error.";
+                    break;
+
+                case StorePurchaseStatus.ServerError:
+                    storeResult.Text = "The purchase was unsuccessful due to a server error.";
+                    break;
+
+                default:
+                    storeResult.Text = "The purchase was unsuccessful due to an unknown error.";
+                    break;
+            }
+        }
+
 
         private async void InitCamera()
 
@@ -397,7 +445,31 @@ namespace EssentialVideoRecorder
     
             
         }
-     
+
+        private void makeDonation_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Donator.Visibility = Visibility.Visible;
+
+        }
+
+        private void Donation1_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            PurchaseAddOn("9nblggh43gh3");
+
+            Donator.Visibility = Visibility.Collapsed;
+        }
+
+        private void Donation2_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            PurchaseAddOn("9nblggh43gh0");
+            Donator.Visibility = Visibility.Collapsed;
+        }
+
+        private void Donation3_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            PurchaseAddOn("9nblggh43gx7");
+            Donator.Visibility = Visibility.Collapsed;
+        }
     }
 
     class Resolutions
