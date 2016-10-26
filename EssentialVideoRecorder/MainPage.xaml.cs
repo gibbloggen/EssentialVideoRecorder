@@ -72,62 +72,79 @@ namespace EssentialVideoRecorder
 
         public ResourceLoader languageLoader;
         private StoreContext context = null;
+        private string thanks;
+        private string f;
+
 
         public MainPage()
         {
             this.InitializeComponent();
 
+            Versatile.Height = 480;
+            Versatile.Width = 640;
             InitCamera();
           
-            // languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
-            // string  str = languageLoader.GetString("Test");
-
-
+            languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            thanks = languageLoader.GetString("ManyThanks");
+          
 
         }
 
         public async void PurchaseAddOn(string storeId)
         {
+
+
+           
+
+
             if (context == null)
             {
                 context = StoreContext.GetDefault();
+               
             }
 
             workingProgressRing.IsActive = true;
             StorePurchaseResult result = await context.RequestPurchaseAsync(storeId);
             workingProgressRing.IsActive = false;
 
-            if (result.ExtendedError != null)
+            /*if (result.ExtendedError != null)
             {
                 // The user may be offline or there might be some other server failure.
                 storeResult.Text = $"ExtendedError: {result.ExtendedError.Message}";
+                storeResult.Visibility = Visibility.Visible;
                 return;
-            }
+            }*/
 
             switch (result.Status)
             {
                 case StorePurchaseStatus.AlreadyPurchased:
                     storeResult.Text = "The user has already purchased the product.";
+                    storeResult.Visibility = Visibility.Visible;
                     break;
 
                 case StorePurchaseStatus.Succeeded:
-                    storeResult.Text = "The purchase was successful.";
+                    //storeResult.Text = "The purchase was successful.";
+                    ManyThanks.Visibility = Visibility.Visible;
                     break;
 
                 case StorePurchaseStatus.NotPurchased:
                     storeResult.Text = "The user cancelled the purchase.";
+                    storeResult.Visibility = Visibility.Visible;
                     break;
 
                 case StorePurchaseStatus.NetworkError:
                     storeResult.Text = "The purchase was unsuccessful due to a network error.";
+                    storeResult.Visibility = Visibility.Visible;
                     break;
 
                 case StorePurchaseStatus.ServerError:
+                    storeResult.Visibility = Visibility.Visible;
                     storeResult.Text = "The purchase was unsuccessful due to a server error.";
                     break;
 
                 default:
                     storeResult.Text = "The purchase was unsuccessful due to an unknown error.";
+                    storeResult.Visibility = Visibility.Visible;
                     break;
             }
         }
@@ -155,33 +172,47 @@ namespace EssentialVideoRecorder
                 return;
             }
 
-           
-            foreach(DeviceInformation q in j)
+            try
             {
-                ComboBoxItem comboBoxItem = new ComboBoxItem();
-                comboBoxItem.Content = q.Name;
-                comboBoxItem.Tag = q;
-                CameraSource.Items.Add(comboBoxItem);
-                
+                foreach (DeviceInformation q in j)
+                {
+                    ComboBoxItem comboBoxItem = new ComboBoxItem();
+                    comboBoxItem.Content = q.Name;
+                    comboBoxItem.Tag = q;
+                    CameraSource.Items.Add(comboBoxItem);
+
+                }
             }
-           DeviceInformation gotCamera =(DeviceInformation) j.First();
-            MediaCaptureInitializationSettings settings = new MediaCaptureInitializationSettings();
-            settings.VideoDeviceId = gotCamera.Id;
-            _mediaCapture = new MediaCapture();
-           
-            await _mediaCapture.InitializeAsync();
-            _mediaCapture.Failed += _mediaCapture_Failed;
+            catch (Exception e) {
 
-            _mediaCapture.RecordLimitationExceeded += MediaCapture_RecordLimitationExceeded;
+                BadDevice.Visibility = Visibility.Visible;
 
-   
-            GetTheVideo.Source = _mediaCapture;
+            }
 
-            await _mediaCapture.StartPreviewAsync();
+            try
+            {
+                DeviceInformation gotCamera = (DeviceInformation)j.First();
+                MediaCaptureInitializationSettings settings = new MediaCaptureInitializationSettings();
+                settings.VideoDeviceId = gotCamera.Id;
+                _mediaCapture = new MediaCapture();
 
-            PopulateSettingsComboBox();
+                await _mediaCapture.InitializeAsync();
+                _mediaCapture.Failed += _mediaCapture_Failed;
+
+                _mediaCapture.RecordLimitationExceeded += MediaCapture_RecordLimitationExceeded;
 
 
+                GetTheVideo.Source = _mediaCapture;
+
+                await _mediaCapture.StartPreviewAsync();
+
+                PopulateSettingsComboBox();
+
+            }
+            catch (Exception e) {
+
+                BadSetting.Visibility = Visibility.Visible;
+            }
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
@@ -214,6 +245,7 @@ namespace EssentialVideoRecorder
 
         private void PopulateSettingsComboBox()
         {
+            CameraSettings.Items.Clear();
             Resolutions[] myResolutions = new Resolutions[4];
              for(int i = 1; i< 5; i++)
             {
@@ -347,6 +379,11 @@ namespace EssentialVideoRecorder
 
             Versatile.Height = 480;
             Versatile.Width = 640;
+            BadDevice.Visibility = Visibility.Collapsed;
+            BadSetting.Visibility = Visibility.Collapsed;
+            NoCamera.Visibility = Visibility.Collapsed;
+            CameraSource.Items.Clear();
+            InitCamera();
             CameraSettings.SelectedIndex = -1;
 
         }
@@ -362,6 +399,14 @@ namespace EssentialVideoRecorder
             CameraSettings.Visibility = Visibility.Collapsed;
             BadBorder.Visibility = Visibility.Collapsed;
             CameraSource.Visibility = Visibility.Collapsed;
+            Donator.Visibility = Visibility.Collapsed;
+            makeDonation.Visibility = Visibility.Collapsed;
+            storeResult.Visibility = Visibility.Collapsed;
+            BadDevice.Visibility = Visibility.Collapsed;
+            BadSetting.Visibility = Visibility.Collapsed;
+            NoCamera.Visibility = Visibility.Collapsed;
+            Info.Visibility = Visibility.Collapsed;
+
 
             VideoName.Width = 10;
             startRecording.Width = 10;
@@ -390,6 +435,7 @@ namespace EssentialVideoRecorder
                 VideoName.Visibility = Visibility.Visible;
                 GetFileName.Visibility = Visibility.Visible;
                 CameraSource.Visibility = Visibility.Visible;
+                Info.Visibility = Visibility.Visible;
                 if (!isRecording)
                 {
                     startRecording.Visibility = Visibility.Visible;
@@ -401,6 +447,8 @@ namespace EssentialVideoRecorder
                 
                 CameraSettings.Visibility = Visibility.Visible;
                 BadBorder.Visibility = Visibility.Visible;
+                makeDonation.Visibility = Visibility.Visible;
+
                 VideoName.Width = 200;
                 startRecording.Width = 200;
                 stopRecording.Width = 200;
@@ -409,7 +457,7 @@ namespace EssentialVideoRecorder
             if (incognitoer == 1) incognitoer = 2;
         }
 
-        private async void Devicechanged_Changed(object sender, SelectionChangedEventArgs e)
+        private async void Devicechanged()
         {
             try
             {
@@ -423,32 +471,45 @@ namespace EssentialVideoRecorder
                 System.Diagnostics.Debug.WriteLine(ex.Message);
 
             }
-            var selectedItem = (sender as ComboBox).SelectedItem as ComboBoxItem;
-          
-            DeviceInformation gotCamera = selectedItem.Tag as DeviceInformation;
 
-            MediaCaptureInitializationSettings settings = new MediaCaptureInitializationSettings();
-            settings.VideoDeviceId = gotCamera.Id;
-            System.Diagnostics.Debug.WriteLine("Cam ID" + gotCamera.Id.ToString());
-            _mediaCapture = new MediaCapture();
+            try
+            {
+              //  int q = 1000;
+              //  do { q = 1000; do { q--; } while (q > 0); } while (CameraSource.Items.Count == 0); 
 
-            await _mediaCapture.InitializeAsync(settings);
-            _mediaCapture.Failed += _mediaCapture_Failed;
+                ComboBoxItem selectedItem = (ComboBoxItem ) CameraSource.SelectedItem;
 
-            _mediaCapture.RecordLimitationExceeded += MediaCapture_RecordLimitationExceeded;
+                DeviceInformation gotCamera = selectedItem.Tag as DeviceInformation;
+
+                MediaCaptureInitializationSettings settings = new MediaCaptureInitializationSettings();
+                settings.VideoDeviceId = gotCamera.Id;
+                System.Diagnostics.Debug.WriteLine("Cam ID" + gotCamera.Id.ToString());
+                _mediaCapture = new MediaCapture();
+
+                await _mediaCapture.InitializeAsync(settings);
+                _mediaCapture.Failed += _mediaCapture_Failed;
+
+                _mediaCapture.RecordLimitationExceeded += MediaCapture_RecordLimitationExceeded;
 
 
-            GetTheVideo.Source = _mediaCapture;
+                GetTheVideo.Source = _mediaCapture;
 
-            await _mediaCapture.StartPreviewAsync();
+                await _mediaCapture.StartPreviewAsync();
+            } catch ( Exception x)
+            {
 
-    
+            }    
             
         }
 
         private void makeDonation_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Donator.Visibility = Visibility.Visible;
+            if (Donator.Visibility == Visibility.Visible)
+                Donator.Visibility = Visibility.Collapsed;
+            else Donator.Visibility = Visibility.Visible;
+
+            storeResult.Visibility = Visibility.Collapsed;
+
 
         }
 
@@ -469,6 +530,12 @@ namespace EssentialVideoRecorder
         {
             PurchaseAddOn("9nblggh43gx7");
             Donator.Visibility = Visibility.Collapsed;
+        }
+
+        private void Devicechanged_Changed2(object sender, SelectionChangedEventArgs e)
+        {
+            if (CameraSource.Items.Count == 0) return;
+            else Devicechanged();
         }
     }
 

@@ -46,6 +46,34 @@
           <source>No Camera Found, Camera Required</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">No encuentra la cámara, cámara requiere</target>
         </trans-unit>
+        <trans-unit id="AntoherTest" translate="yes" xml:space="preserve">
+          <source>Another Test</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Otra prueba</target>
+        </trans-unit>
+        <trans-unit id="MakeDonation.Content" translate="yes" xml:space="preserve">
+          <source>Make Donation</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Hacer donación</target>
+        </trans-unit>
+        <trans-unit id="whatever" translate="yes" xml:space="preserve">
+          <source>Is it here?</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">¿Es aquí?</target>
+        </trans-unit>
+        <trans-unit id="ManyThanks.Text" translate="yes" xml:space="preserve">
+          <source>THANK YOU VERY MUCH!</source>
+          <target state="final" state-qualifier="mt-suggestion">¡Muchas gracias!</target>
+        </trans-unit>
+        <trans-unit id="BadDevice" translate="yes" xml:space="preserve">
+          <source>Incompatable Camera Found. </source>
+          <target state="translated">Cámara compatible encontrado. </target>
+        </trans-unit>
+        <trans-unit id="BadSetting" translate="yes" xml:space="preserve">
+          <source>Bad Setting, Change Camera.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Mal ajuste, cambio de cámara.</target>
+        </trans-unit>
+        <trans-unit id="Reset-Info.Text" translate="yes" xml:space="preserve">
+          <source>Any Hardware Change click Reset</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Cualquier cambio de Hardware haga clic en restablecer</target>
+        </trans-unit>
       </group>
     </body>
   </file>

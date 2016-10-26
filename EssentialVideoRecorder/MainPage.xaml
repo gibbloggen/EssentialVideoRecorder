@@ -85,11 +85,15 @@
 
         <CaptureElement Name="GetTheVideo" Stretch="Uniform"></CaptureElement>
 
-        <StackPanel  Orientation="Vertical" Margin="42,25,0,0">
+        <StackPanel  Orientation="Vertical" Margin="21,25,0,0">
             <StackPanel Orientation="Horizontal">
                 <Button Name="Reset" x:Uid="ResetButton" Template="{StaticResource HoveringButton}" Width="95" Content="Reset" Tapped="Reset_Tapped"/>
                 <Button Name="Incognito" x:Uid="IncognitoButton" Template="{StaticResource HoveringButton}" Width="85" Content="Incognito" Tapped="Incognito_Tapped"/>
+               
             </StackPanel>
+            <Button x:Uid="StartRecordingButton" Template="{StaticResource HoveringButton}" Margin="0,8,0,8" Width="200" Name="startRecording"  Tapped="startRecording_Tapped">Start Recording</Button>
+            <Button x:Uid="StopRecordingButton" Template="{StaticResource HoveringButton}"  Margin="0,8,0,8" Width="200" Name="stopRecording" Tapped="stopRecording_Tapped">Stop Recording</Button>
+
             <StackPanel Orientation="Horizontal">
 
                 <Border Name="BadBorder" BorderThickness="1" BorderBrush="Black" CornerRadius="3" Padding="2"  Background="#FFE8E6E6"   HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -104,15 +108,15 @@
 
             </StackPanel>
 
-            <ComboBox x:Name="CameraSource"  x:Uid="CameraSourceCombo"   PlaceholderText="Video Devices" Width="250" Margin="0,42,0,0" SelectionChanged="Devicechanged_Changed"  />
+            <ComboBox x:Name="CameraSource"  x:Uid="CameraSourceCombo"   PlaceholderText="Video Devices" Width="250" Margin="0,42,0,0" SelectionChanged="Devicechanged_Changed2"  />
 
-            <TextBox FontSize="32" Name="NoCamera" Background="Red" x:Uid="NoCamera" Text="No Camera Found, Camera Required" Visibility="Collapsed" />
+            <TextBox FontSize="14" Name="NoCamera" Background="Red" IsReadOnly="True" x:Uid="NoCamera" Text="No Camera Found, Camera Required" Visibility="Collapsed" />
+            <TextBox FontSize="14" Name="BadDevice" Background="Red" IsReadOnly="True"  x:Uid="BadDevice" Text="An Incompatable Video Source was found." Visibility="Collapsed" />
+            <TextBox FontSize="14" Name="BadSetting" Background="Red" IsReadOnly="True" x:Uid="BadSetting" Text="There is a setting that is incompatable." Visibility="Collapsed" />
 
             <ComboBox Name="CameraSettings" x:Uid="CameraSettingsCombo" PlaceholderText="Video Size" Width="250" Margin="0,42,0,0" SelectionChanged="ComboBoxSettings_Changed"  />
 
-            <Button x:Uid="StartRecordingButton" Template="{StaticResource HoveringButton}" Margin="0,36,0,0" Width="200" Name="startRecording"  Tapped="startRecording_Tapped">Start Recording</Button>
-            <Button x:Uid="StopRecordingButton" Template="{StaticResource HoveringButton}"  Margin="0,36,0,0" Width="200" Name="stopRecording" Tapped="stopRecording_Tapped">Stop Recording</Button>
-
+           
 
             <ProgressRing x:Name="workingProgressRing"/>
             <Button x:Uid="MakeDonation" Template="{StaticResource HoveringButton}"  Margin="0,24,0,0" Width="200" Name="makeDonation" Tapped="makeDonation_Tapped">Make Donation</Button>
@@ -121,7 +125,10 @@
                     <Button x:Uid="Donation2" Template="{StaticResource HoveringButton}"  Margin="0,22,12,0" Width="54" Name="Donation2" Tapped="Donation2_Tapped">$2</Button>
                     <Button x:Uid="Donation3" Template="{StaticResource HoveringButton}"  Margin="0,22,12,0" Width="54" Name="Donation3" Tapped="Donation3_Tapped">$3</Button>
             </StackPanel>
-            <TextBlock Name="storeResult" />
+            <TextBox Name="storeResult" Background="Red" Visibility="Collapsed"  />
+            <TextBox x:Uid="ManyThanks" TextAlignment="Center" Name="ManyThanks" IsReadOnly="True"  Background="LawnGreen" Foreground="Black" Width="325" Visibility="Collapsed"  Text="Huh???"/>
+            <TextBox x:Uid="Reset-Info" Margin ="0,24,0,0"  TextAlignment="Center" Name="Info" IsReadOnly="True" Background="LightGray" Foreground="Black" Width="385" Visibility="Visible" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" ManipulationMode="None"   />
+
         </StackPanel>
     </Grid>
 </Page>

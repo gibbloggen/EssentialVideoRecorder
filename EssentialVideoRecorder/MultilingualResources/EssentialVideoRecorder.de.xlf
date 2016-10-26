@@ -8,43 +8,71 @@
       <group id="ESSENTIALVIDEORECORDER/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
         <trans-unit id="CameraSourceCombo.PlaceholderText" translate="yes" xml:space="preserve">
           <source>Video Devices</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Video-Geräte</target>
+          <target state="final" state-qualifier="mt-suggestion">Video-Geräte</target>
         </trans-unit>
         <trans-unit id="CameraSettingsCombo.PlaceholderText" translate="yes" xml:space="preserve">
           <source>Video Size</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">Videogröße</target>
+          <target state="final" state-qualifier="tm-suggestion">Videogröße</target>
         </trans-unit>
         <trans-unit id="ResetButton.Content" translate="yes" xml:space="preserve">
           <source>Reset</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">Zurücksetzen</target>
+          <target state="final" state-qualifier="tm-suggestion">Zurücksetzen</target>
         </trans-unit>
         <trans-unit id="StartRecordingButton.Content" translate="yes" xml:space="preserve">
           <source>Start Recording</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">Aufzeichnung starten</target>
+          <target state="final" state-qualifier="tm-suggestion">Aufzeichnung starten</target>
         </trans-unit>
         <trans-unit id="StopRecordingButton.Content" translate="yes" xml:space="preserve">
           <source>Stop Recording</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">Aufzeichnung beenden</target>
+          <target state="final" state-qualifier="tm-suggestion">Aufzeichnung beenden</target>
         </trans-unit>
         <trans-unit id="VideoFilename.Text" translate="yes" xml:space="preserve">
           <source>Video File Name</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Video-Datei-Namen</target>
+          <target state="final" state-qualifier="mt-suggestion">Video-Datei-Namen</target>
         </trans-unit>
         <trans-unit id="GetFileName.Content" translate="yes" xml:space="preserve">
           <source>Choose</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">WAHL</target>
+          <target state="final" state-qualifier="tm-suggestion">WAHL</target>
         </trans-unit>
         <trans-unit id="IncognitoButton.Content" translate="yes" xml:space="preserve">
           <source>Incognito</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Inkognito</target>
+          <target state="final" state-qualifier="mt-suggestion">Inkognito</target>
         </trans-unit>
         <trans-unit id="Test" translate="yes" xml:space="preserve">
           <source>This is a Test</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Dies ist ein Test</target>
+          <target state="final" state-qualifier="mt-suggestion">Dies ist ein Test</target>
         </trans-unit>
         <trans-unit id="NoCamera.Text" translate="yes" xml:space="preserve">
           <source>No Camera Found, Camera Required</source>
-          <target state="needs-review-translation" state-qualifier="mt-suggestion">Keine Kamera gefunden, Kamera benötigt</target>
+          <target state="final" state-qualifier="mt-suggestion">Keine Kamera gefunden, Kamera benötigt</target>
+        </trans-unit>
+        <trans-unit id="AntoherTest" translate="yes" xml:space="preserve">
+          <source>Another Test</source>
+          <target state="final" state-qualifier="mt-suggestion">Ein weiterer Test</target>
+        </trans-unit>
+        <trans-unit id="MakeDonation.Content" translate="yes" xml:space="preserve">
+          <source>Make Donation</source>
+          <target state="final" state-qualifier="mt-suggestion">Spende</target>
+        </trans-unit>
+        <trans-unit id="whatever" translate="yes" xml:space="preserve">
+          <source>Is it here?</source>
+          <target state="final" state-qualifier="mt-suggestion">Ist es hier?</target>
+        </trans-unit>
+        <trans-unit id="ManyThanks.Text" translate="yes" xml:space="preserve">
+          <source>THANK YOU VERY MUCH!</source>
+          <target state="final" state-qualifier="mt-suggestion">Vielen Dank!</target>
+        </trans-unit>
+        <trans-unit id="BadDevice" translate="yes" xml:space="preserve">
+          <source>Incompatable Camera Found. </source>
+          <target state="translated">Incompatable Kamera gefunden. </target>
+        </trans-unit>
+        <trans-unit id="BadSetting" translate="yes" xml:space="preserve">
+          <source>Bad Setting, Change Camera.</source>
+          <target state="translated" state-qualifier="mt-suggestion">Schlechte Einstellung, Änderung Kamera.</target>
+        </trans-unit>
+        <trans-unit id="Reset-Info.Text" translate="yes" xml:space="preserve">
+          <source>Any Hardware Change click Reset</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Irgendeine Hardware-Änderung klicken Sie auf Zurücksetzen</target>
         </trans-unit>
       </group>
     </body>

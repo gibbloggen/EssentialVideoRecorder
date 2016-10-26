@@ -42,4 +42,25 @@
   <data name="NoCamera.Text" xml:space="preserve">
     <value>Nessuna fotocamera trovata, richiede la Camera</value>
   </data>
+  <data name="AntoherTest" xml:space="preserve">
+    <value>Un altro Test</value>
+  </data>
+  <data name="MakeDonation.Content" xml:space="preserve">
+    <value>Fare donazione</value>
+  </data>
+  <data name="whatever" xml:space="preserve">
+    <value>È qui?</value>
+  </data>
+  <data name="ManyThanks.Text" xml:space="preserve">
+    <value>Mille Grazie!</value>
+  </data>
+  <data name="BadDevice" xml:space="preserve">
+    <value>Fotocamera compatibile trovato. </value>
+  </data>
+  <data name="BadSetting" xml:space="preserve">
+    <value>Cattiva impostazione, modificare la Camera.</value>
+  </data>
+  <data name="Reset-Info.Text" xml:space="preserve">
+    <value>Qualsiasi cambiamento di Hardware fare clic su Reimposta</value>
+  </data>
 </root>

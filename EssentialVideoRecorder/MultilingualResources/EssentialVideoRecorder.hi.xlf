@@ -46,6 +46,34 @@
           <source>No Camera Found, Camera Required</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">कोई कैमरा मिला, कैमरे की आवश्यकता</target>
         </trans-unit>
+        <trans-unit id="AntoherTest" translate="yes" xml:space="preserve">
+          <source>Another Test</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">एक और परीक्षण</target>
+        </trans-unit>
+        <trans-unit id="MakeDonation.Content" translate="yes" xml:space="preserve">
+          <source>Make Donation</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">दान करें</target>
+        </trans-unit>
+        <trans-unit id="whatever" translate="yes" xml:space="preserve">
+          <source>Is it here?</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">यह यहाँ है?</target>
+        </trans-unit>
+        <trans-unit id="ManyThanks.Text" translate="yes" xml:space="preserve">
+          <source>THANK YOU VERY MUCH!</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">बहुत-बहुत धन्यवाद!</target>
+        </trans-unit>
+        <trans-unit id="BadDevice" translate="yes" xml:space="preserve">
+          <source>Incompatable Camera Found. </source>
+          <target state="translated">समस्या कैमरा मिला</target>
+        </trans-unit>
+        <trans-unit id="BadSetting" translate="yes" xml:space="preserve">
+          <source>Bad Setting, Change Camera.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">बुरा सेटिंग, परिवर्तन कैमरा।</target>
+        </trans-unit>
+        <trans-unit id="Reset-Info.Text" translate="yes" xml:space="preserve">
+          <source>Any Hardware Change click Reset</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">किसी भी हार्डवेयर परिवर्तन क्लिक करें रीसेट करें</target>
+        </trans-unit>
       </group>
     </body>
   </file>

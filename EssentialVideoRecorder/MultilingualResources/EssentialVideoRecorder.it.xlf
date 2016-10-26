@@ -46,6 +46,34 @@
           <source>No Camera Found, Camera Required</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">Nessuna fotocamera trovata, richiede la Camera</target>
         </trans-unit>
+        <trans-unit id="AntoherTest" translate="yes" xml:space="preserve">
+          <source>Another Test</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Un altro Test</target>
+        </trans-unit>
+        <trans-unit id="MakeDonation.Content" translate="yes" xml:space="preserve">
+          <source>Make Donation</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Fare donazione</target>
+        </trans-unit>
+        <trans-unit id="whatever" translate="yes" xml:space="preserve">
+          <source>Is it here?</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">È qui?</target>
+        </trans-unit>
+        <trans-unit id="ManyThanks.Text" translate="yes" xml:space="preserve">
+          <source>THANK YOU VERY MUCH!</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Mille Grazie!</target>
+        </trans-unit>
+        <trans-unit id="BadDevice" translate="yes" xml:space="preserve">
+          <source>Incompatable Camera Found. </source>
+          <target state="translated">Fotocamera compatibile trovato. </target>
+        </trans-unit>
+        <trans-unit id="BadSetting" translate="yes" xml:space="preserve">
+          <source>Bad Setting, Change Camera.</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Cattiva impostazione, modificare la Camera.</target>
+        </trans-unit>
+        <trans-unit id="Reset-Info.Text" translate="yes" xml:space="preserve">
+          <source>Any Hardware Change click Reset</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Qualsiasi cambiamento di Hardware fare clic su Reimposta</target>
+        </trans-unit>
       </group>
     </body>
   </file>

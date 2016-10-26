@@ -42,4 +42,25 @@
   <data name="NoCamera.Text" xml:space="preserve">
     <value>Keine Kamera gefunden, Kamera benötigt</value>
   </data>
+  <data name="AntoherTest" xml:space="preserve">
+    <value>Ein weiterer Test</value>
+  </data>
+  <data name="MakeDonation.Content" xml:space="preserve">
+    <value>Spende</value>
+  </data>
+  <data name="whatever" xml:space="preserve">
+    <value>Ist es hier?</value>
+  </data>
+  <data name="ManyThanks.Text" xml:space="preserve">
+    <value>Vielen Dank!</value>
+  </data>
+  <data name="BadDevice" xml:space="preserve">
+    <value>Incompatable Kamera gefunden. </value>
+  </data>
+  <data name="BadSetting" xml:space="preserve">
+    <value>Schlechte Einstellung, Änderung Kamera.</value>
+  </data>
+  <data name="Reset-Info.Text" xml:space="preserve">
+    <value>Irgendeine Hardware-Änderung klicken Sie auf Zurücksetzen</value>
+  </data>
 </root>

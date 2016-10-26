@@ -39,4 +39,19 @@
   <data name="NoCamera.Text" xml:space="preserve">
     <value>No Camera Natagpuan, Camera Kinakailangan</value>
   </data>
+  <data name="MakeDonation.Content" xml:space="preserve">
+    <value>Gumawa Donation</value>
+  </data>
+  <data name="ManyThanks.Text" xml:space="preserve">
+    <value>MARAMING SALAMAT!</value>
+  </data>
+  <data name="BadDevice" xml:space="preserve">
+    <value>Incompatable camera natagpuan</value>
+  </data>
+  <data name="BadSetting" xml:space="preserve">
+    <value>mali Setting, Baguhin Camera</value>
+  </data>
+  <data name="Reset-Info.Text" xml:space="preserve">
+    <value>Anumang Hardware Baguhin click Magreset</value>
+  </data>
 </root>

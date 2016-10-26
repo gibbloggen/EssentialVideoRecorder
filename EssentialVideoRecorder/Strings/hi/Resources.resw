@@ -42,4 +42,25 @@
   <data name="NoCamera.Text" xml:space="preserve">
     <value>कोई कैमरा मिला, कैमरे की आवश्यकता</value>
   </data>
+  <data name="AntoherTest" xml:space="preserve">
+    <value>एक और परीक्षण</value>
+  </data>
+  <data name="MakeDonation.Content" xml:space="preserve">
+    <value>दान करें</value>
+  </data>
+  <data name="whatever" xml:space="preserve">
+    <value>यह यहाँ है?</value>
+  </data>
+  <data name="ManyThanks.Text" xml:space="preserve">
+    <value>बहुत-बहुत धन्यवाद!</value>
+  </data>
+  <data name="BadDevice" xml:space="preserve">
+    <value>समस्या कैमरा मिला</value>
+  </data>
+  <data name="BadSetting" xml:space="preserve">
+    <value>बुरा सेटिंग, परिवर्तन कैमरा।</value>
+  </data>
+  <data name="Reset-Info.Text" xml:space="preserve">
+    <value>किसी भी हार्डवेयर परिवर्तन क्लिक करें रीसेट करें</value>
+  </data>
 </root>
