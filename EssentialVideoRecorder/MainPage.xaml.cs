@@ -94,58 +94,64 @@ namespace EssentialVideoRecorder
         {
 
 
-           
-
-
-            if (context == null)
+            try
             {
-                context = StoreContext.GetDefault();
-               
-            }
 
-            workingProgressRing.IsActive = true;
-            StorePurchaseResult result = await context.RequestPurchaseAsync(storeId);
-            workingProgressRing.IsActive = false;
 
-            /*if (result.ExtendedError != null)
+                if (context == null)
+                {
+                    context = StoreContext.GetDefault();
+
+                }
+
+                workingProgressRing.IsActive = true;
+                StorePurchaseResult result = await context.RequestPurchaseAsync(storeId);
+                workingProgressRing.IsActive = false;
+
+                /*if (result.ExtendedError != null)
+                {
+                    // The user may be offline or there might be some other server failure.
+                    storeResult.Text = $"ExtendedError: {result.ExtendedError.Message}";
+                    storeResult.Visibility = Visibility.Visible;
+                    return;
+                }*/
+
+                switch (result.Status)
+                {
+                    case StorePurchaseStatus.AlreadyPurchased:
+                        storeResult.Text = "The user has already purchased the product.";
+                        storeResult.Visibility = Visibility.Visible;
+                        break;
+
+                    case StorePurchaseStatus.Succeeded:
+                        //storeResult.Text = "The purchase was successful.";
+                        ManyThanks.Visibility = Visibility.Visible;
+                        break;
+
+                    case StorePurchaseStatus.NotPurchased:
+                        storeResult.Text = "The user cancelled the purchase.";
+                        storeResult.Visibility = Visibility.Visible;
+                        break;
+
+                    case StorePurchaseStatus.NetworkError:
+                        storeResult.Text = "The purchase was unsuccessful due to a network error.";
+                        storeResult.Visibility = Visibility.Visible;
+                        break;
+
+                    case StorePurchaseStatus.ServerError:
+                        storeResult.Visibility = Visibility.Visible;
+                        storeResult.Text = "The purchase was unsuccessful due to a server error.";
+                        break;
+
+                    default:
+                        storeResult.Text = "The purchase was unsuccessful due to an unknown error.";
+                        storeResult.Visibility = Visibility.Visible;
+                        break;
+                }
+            } catch (Exception ex)
             {
-                // The user may be offline or there might be some other server failure.
-                storeResult.Text = $"ExtendedError: {result.ExtendedError.Message}";
+                storeResult.Text = "The purchase was unsuccessful due to an unknown error.";
                 storeResult.Visibility = Visibility.Visible;
-                return;
-            }*/
-
-            switch (result.Status)
-            {
-                case StorePurchaseStatus.AlreadyPurchased:
-                    storeResult.Text = "The user has already purchased the product.";
-                    storeResult.Visibility = Visibility.Visible;
-                    break;
-
-                case StorePurchaseStatus.Succeeded:
-                    //storeResult.Text = "The purchase was successful.";
-                    ManyThanks.Visibility = Visibility.Visible;
-                    break;
-
-                case StorePurchaseStatus.NotPurchased:
-                    storeResult.Text = "The user cancelled the purchase.";
-                    storeResult.Visibility = Visibility.Visible;
-                    break;
-
-                case StorePurchaseStatus.NetworkError:
-                    storeResult.Text = "The purchase was unsuccessful due to a network error.";
-                    storeResult.Visibility = Visibility.Visible;
-                    break;
-
-                case StorePurchaseStatus.ServerError:
-                    storeResult.Visibility = Visibility.Visible;
-                    storeResult.Text = "The purchase was unsuccessful due to a server error.";
-                    break;
-
-                default:
-                    storeResult.Text = "The purchase was unsuccessful due to an unknown error.";
-                    storeResult.Visibility = Visibility.Visible;
-                    break;
             }
         }
 
@@ -382,6 +388,7 @@ namespace EssentialVideoRecorder
             BadDevice.Visibility = Visibility.Collapsed;
             BadSetting.Visibility = Visibility.Collapsed;
             NoCamera.Visibility = Visibility.Collapsed;
+            ManyThanks.Visibility = Visibility.Collapsed;
             CameraSource.Items.Clear();
             InitCamera();
             CameraSettings.SelectedIndex = -1;
@@ -406,7 +413,7 @@ namespace EssentialVideoRecorder
             BadSetting.Visibility = Visibility.Collapsed;
             NoCamera.Visibility = Visibility.Collapsed;
             Info.Visibility = Visibility.Collapsed;
-
+            ManyThanks.Visibility = Visibility.Collapsed;
 
             VideoName.Width = 10;
             startRecording.Width = 10;
