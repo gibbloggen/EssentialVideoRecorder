@@ -74,6 +74,10 @@
           <source>Any Hardware Change click Reset</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">Qualsiasi cambiamento di Hardware fare clic su Reimposta</target>
         </trans-unit>
+        <trans-unit id="RecordLimit.Text" translate="yes" xml:space="preserve">
+          <source>Record Limit Exceeded</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Superato il limite di record</target>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -54,4 +54,7 @@
   <data name="Reset-Info.Text" xml:space="preserve">
     <value>Anumang Hardware Baguhin click Magreset</value>
   </data>
+  <data name="RecordLimit.Text" xml:space="preserve">
+    <value>Record limitasyon lumampas</value>
+  </data>
 </root>

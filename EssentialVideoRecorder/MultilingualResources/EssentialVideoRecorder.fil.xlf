@@ -74,6 +74,10 @@
           <source>Any Hardware Change click Reset</source>
           <target state="translated">Anumang Hardware Baguhin click Magreset</target>
         </trans-unit>
+        <trans-unit id="RecordLimit.Text" translate="yes" xml:space="preserve">
+          <source>Record Limit Exceeded</source>
+          <target state="translated">Record limitasyon lumampas</target>
+        </trans-unit>
       </group>
     </body>
   </file>

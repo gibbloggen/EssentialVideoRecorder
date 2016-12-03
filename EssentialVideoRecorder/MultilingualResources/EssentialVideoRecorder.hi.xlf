@@ -74,6 +74,10 @@
           <source>Any Hardware Change click Reset</source>
           <target state="needs-review-translation" state-qualifier="mt-suggestion">किसी भी हार्डवेयर परिवर्तन क्लिक करें रीसेट करें</target>
         </trans-unit>
+        <trans-unit id="RecordLimit.Text" translate="yes" xml:space="preserve">
+          <source>Record Limit Exceeded</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">रिकॉर्ड सीमा पार हो गई</target>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -113,6 +113,7 @@
             <TextBox FontSize="14" Name="NoCamera" Background="Red" IsReadOnly="True" x:Uid="NoCamera" Text="No Camera Found, Camera Required" Visibility="Collapsed" />
             <TextBox FontSize="14" Name="BadDevice" Background="Red" IsReadOnly="True"  x:Uid="BadDevice" Text="An Incompatable Video Source was found." Visibility="Collapsed" />
             <TextBox FontSize="14" Name="BadSetting" Background="Red" IsReadOnly="True" x:Uid="BadSetting" Text="There is a setting that is incompatable." Visibility="Collapsed" />
+            <TextBox FontSize="14" Name="RecordLimit" Background="Red" IsReadOnly="True" x:Uid="RecordLimit" Text="There is a setting that is incompatable." Visibility="Collapsed" />
 
             <ComboBox Name="CameraSettings" x:Uid="CameraSettingsCombo" PlaceholderText="Video Size" Width="250" Margin="0,42,0,0" SelectionChanged="ComboBoxSettings_Changed"  />
 

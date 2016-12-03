@@ -63,4 +63,7 @@
   <data name="Reset-Info.Text" xml:space="preserve">
     <value>किसी भी हार्डवेयर परिवर्तन क्लिक करें रीसेट करें</value>
   </data>
+  <data name="RecordLimit.Text" xml:space="preserve">
+    <value>रिकॉर्ड सीमा पार हो गई</value>
+  </data>
 </root>

@@ -63,4 +63,7 @@
   <data name="Reset-Info.Text" xml:space="preserve">
     <value>Cualquier cambio de Hardware haga clic en restablecer</value>
   </data>
+  <data name="RecordLimit.Text" xml:space="preserve">
+    <value>Registro límite excedido</value>
+  </data>
 </root>

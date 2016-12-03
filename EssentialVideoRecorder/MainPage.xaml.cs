@@ -361,7 +361,17 @@ namespace EssentialVideoRecorder
 
         private async void MediaCapture_RecordLimitationExceeded(MediaCapture sender)
         {
-            await _mediaRecording.StopAsync(); 
+            try
+            {
+                await _mediaRecording.StopAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
+
+            RecordLimit.Visibility = Visibility.Visible;
             System.Diagnostics.Debug.WriteLine("Record limitation exceeded.");
             isRecording = false;
         }
@@ -388,6 +398,7 @@ namespace EssentialVideoRecorder
             BadDevice.Visibility = Visibility.Collapsed;
             BadSetting.Visibility = Visibility.Collapsed;
             NoCamera.Visibility = Visibility.Collapsed;
+            RecordLimit.Visibility = Visibility.Collapsed;
             ManyThanks.Visibility = Visibility.Collapsed;
             CameraSource.Items.Clear();
             InitCamera();
@@ -412,6 +423,7 @@ namespace EssentialVideoRecorder
             BadDevice.Visibility = Visibility.Collapsed;
             BadSetting.Visibility = Visibility.Collapsed;
             NoCamera.Visibility = Visibility.Collapsed;
+            RecordLimit.Visibility = Visibility.Collapsed;
             Info.Visibility = Visibility.Collapsed;
             ManyThanks.Visibility = Visibility.Collapsed;
 

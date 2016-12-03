@@ -63,4 +63,7 @@
   <data name="Reset-Info.Text" xml:space="preserve">
     <value>Tout changement de matériel, cliquez sur Reset</value>
   </data>
+  <data name="RecordLimit.Text" xml:space="preserve">
+    <value>Record limite dépassée</value>
+  </data>
 </root>

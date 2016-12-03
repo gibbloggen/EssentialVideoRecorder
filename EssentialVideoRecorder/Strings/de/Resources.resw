@@ -63,4 +63,7 @@
   <data name="Reset-Info.Text" xml:space="preserve">
     <value>Irgendeine Hardware-Änderung klicken Sie auf Zurücksetzen</value>
   </data>
+  <data name="RecordLimit.Text" xml:space="preserve">
+    <value>Datensatzgrenze überschritten</value>
+  </data>
 </root>

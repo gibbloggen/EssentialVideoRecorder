@@ -168,4 +168,7 @@
   <data name="Reset-Info.Text" xml:space="preserve">
     <value>Any Hardware Change click Reset</value>
   </data>
+  <data name="RecordLimit.Text" xml:space="preserve">
+    <value>Record Limit Exceeded</value>
+  </data>
 </root>
