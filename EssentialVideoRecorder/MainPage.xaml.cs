@@ -68,7 +68,7 @@ namespace EssentialVideoRecorder
         int incognitoer = 0;
         private static readonly Guid RotationKey = new Guid("C380465D-2271-428C-9B83-ECEA3B4A85C1");  //I have no idea what this is, but you need it :-)
 
-
+        private bool filejustcreated = false;
 
         public ResourceLoader languageLoader;
         private StoreContext context = null;
@@ -180,10 +180,31 @@ namespace EssentialVideoRecorder
 
             try
             {
+                string[] dups = new string[j.Count];
+                int WhichDevice = 0;
+                string nameThatCamera = "";
+                int howManyCameras = 0;
                 foreach (DeviceInformation q in j)
                 {
+                    nameThatCamera = q.Name;
+                    if(WhichDevice > 0)
+                    {
+                        for(int v=0; v<WhichDevice; v++)
+                        {
+                            if( nameThatCamera == dups[v]) { howManyCameras++; }
+                        }
+                        if (howManyCameras == 0) { } else
+                        {
+                            howManyCameras++;
+                            nameThatCamera = nameThatCamera + '-' + howManyCameras.ToString();
+                        }
+                        howManyCameras = 0;
+                    }
+                    dups[WhichDevice] = q.Name;
+                    WhichDevice++;
                     ComboBoxItem comboBoxItem = new ComboBoxItem();
-                    comboBoxItem.Content = q.Name;
+                    comboBoxItem.Content = nameThatCamera;
+                   
                     comboBoxItem.Tag = q;
                     CameraSource.Items.Add(comboBoxItem);
 
@@ -311,18 +332,42 @@ namespace EssentialVideoRecorder
 
 
                 _encodingProfile = MediaEncodingProfile.CreateMp4(VideoEncodingQuality.Auto);
-                
+
                 // Create storage file for the capture
 
-               
+                string vidname = "EssentialVideo.mp4";
+
+
 
                 if (videoFile == null)
                 {
-                    videoFile = await captureFolder.CreateFileAsync("EssentialVideo.mp4", CreationCollisionOption.GenerateUniqueName);
+                   
+                        videoFile = await captureFolder.CreateFileAsync(vidname, CreationCollisionOption.GenerateUniqueName);
+                   
                 }
+                else if(videoFile.Name.Contains("EssentialVideo"))
+                {
+                    videoFile = await captureFolder.CreateFileAsync(vidname, CreationCollisionOption.GenerateUniqueName);
 
-      
-                
+                } else if (videoFile.IsAvailable) { }
+                else
+                {
+                    Debug.WriteLine("What should I do with this?" + videoFile.Path);
+                }
+                /*   {
+                       if (videoFile.IsAvailable) { } else await vidoeFile.
+
+                       vidname = videoFile.Name;
+
+                   }
+                   if (!filejustcreated)
+                   {
+                       videoFile = await captureFolder.CreateFileAsync(vidname, CreationCollisionOption.GenerateUniqueName);
+                   }
+                   else filejustcreated = false;
+                   */
+
+
                 Debug.WriteLine("Starting recording to " + videoFile.Path);
 
                 await _mediaCapture.StartRecordToStorageFileAsync(_encodingProfile, videoFile);
@@ -352,6 +397,9 @@ namespace EssentialVideoRecorder
                 CameraSettings.IsEnabled = true;
                 CameraSource.IsEnabled = true;
                 startRecording.Visibility = Visibility.Visible;
+                VideoName.Text = "Pick New File Name";
+                videoFile = null;
+
             }
             catch (Exception ex)
             {
@@ -387,6 +435,8 @@ namespace EssentialVideoRecorder
             {
                 videoFile = file;
                 VideoName.Text = videoFile.Name;
+                filejustcreated = true;
+
             }
         }
 

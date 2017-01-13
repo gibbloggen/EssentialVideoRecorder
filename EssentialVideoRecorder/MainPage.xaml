@@ -128,7 +128,7 @@
             </StackPanel>
             <TextBox Name="storeResult" Background="Red" Visibility="Collapsed"  />
             <TextBox x:Uid="ManyThanks" TextAlignment="Center" Name="ManyThanks" IsReadOnly="True"  Background="LawnGreen" Foreground="Black" Width="325" Visibility="Collapsed"  Text="Huh???"/>
-            <TextBox x:Uid="Reset-Info" Margin ="0,24,0,0"  TextAlignment="Center" Name="Info" IsReadOnly="True" Background="LightGray" Foreground="Black" Width="385" Visibility="Visible" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" ManipulationMode="None"   />
+            <TextBox x:Uid="Reset-Info" Margin ="0,24,0,0"  TextAlignment="Center" Name="Info" IsReadOnly="True" Background="Goldenrod" Foreground="Black" Width="385" Visibility="Visible" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" ManipulationMode="None"   />
 
         </StackPanel>
     </Grid>
