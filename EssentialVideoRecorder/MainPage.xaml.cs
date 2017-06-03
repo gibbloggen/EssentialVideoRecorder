@@ -80,15 +80,108 @@ namespace EssentialVideoRecorder
         {
             this.InitializeComponent();
 
-            Versatile.Height = 480;
-            Versatile.Width = 640;
+           // Versatile.Height = 480;
+            //Versatile.Width = 640;
             InitCamera();
           
             languageLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
             thanks = languageLoader.GetString("ManyThanks");
-          
+            Window.Current.SizeChanged += Current_SizeChanged;
 
         }
+
+        private void Current_SizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
+        {
+           
+
+            Versatile.Width = e.Size.Width;
+            Versatile.Height = e.Size.Height;
+
+
+        }
+
+        //This came from a Tutorial page, with all my camera's, Logitech, they are all identical.  But may need it for other users in the future.
+        private void CheckIfStreamsAreIdentical()
+        {
+            if (_mediaCapture.MediaCaptureSettings.VideoDeviceCharacteristic == VideoDeviceCharacteristic.AllStreamsIdentical ||
+                _mediaCapture.MediaCaptureSettings.VideoDeviceCharacteristic == VideoDeviceCharacteristic.PreviewRecordStreamsIdentical)
+            {
+                System.Diagnostics.Debug.WriteLine("Preview and video streams for this device are identical. Changing one will affect the other");
+            }
+        }
+
+
+        private void PopulateStreamPropertiesUI(MediaStreamType streamType, ComboBox comboBox, bool showFrameRate = true)
+        {
+            // Query all properties of the specified stream type 
+            IEnumerable<StreamPropertiesHelper> allStreamProperties =
+                _mediaCapture.VideoDeviceController.GetAvailableMediaStreamProperties(streamType).Select(x => new StreamPropertiesHelper(x));
+
+            // Order them by resolution then frame rate
+            allStreamProperties = allStreamProperties.Where(x => x.FrameRate > 9).OrderByDescending(x => x.Height * x.Width).ThenByDescending(x => x.FrameRate);
+
+            // Populate the combo box with the entries
+            foreach (var property in allStreamProperties)
+            {
+                ComboBoxItem comboBoxItem = new ComboBoxItem();
+                comboBoxItem.Content = property.GetFriendlyName(showFrameRate);
+                comboBoxItem.Tag = property;
+                comboBox.Items.Add(comboBoxItem);
+            }
+        }
+
+        public async void GetVideoSettings()
+        {
+
+            string deviceId = string.Empty;
+            // Window.Devices.Enumeration.
+
+            // Finds all video capture devices
+            DeviceInformationCollection devices = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
+
+
+
+
+
+
+
+            foreach (var device in devices)
+            {
+                // Check if the device on the requested panel supports Video Profile
+                if (MediaCapture.IsVideoProfileSupported(device.Id)) // && device.EnclosureLocation.Panel == panel)
+                {
+                    // We've located a device that supports Video Profiles on expected panel
+                    deviceId = device.Id;
+                    break;
+                }
+            }
+
+            // return deviceId;
+
+
+
+            var mediaInitSettings = new MediaCaptureInitializationSettings { VideoDeviceId = deviceId };
+
+            IReadOnlyList<MediaCaptureVideoProfile> profiles = MediaCapture.FindAllVideoProfiles(deviceId);
+
+            var match = (from profile in profiles
+                         from desc in profile.SupportedRecordMediaDescription
+                         where desc.Width == 640 && desc.Height == 480 && Math.Round(desc.FrameRate) == 30
+                         select new { profile, desc }).FirstOrDefault();
+
+            if (match != null)
+            {
+                mediaInitSettings.VideoProfile = match.profile;
+                mediaInitSettings.RecordMediaDescription = match.desc;
+            }
+            else
+            {
+                // Could not locate a WVGA 30FPS profile, use default video recording profile
+                mediaInitSettings.VideoProfile = profiles[0];
+            }
+        }
+
+
 
         public async void PurchaseAddOn(string storeId)
         {
@@ -162,7 +255,7 @@ namespace EssentialVideoRecorder
             stopRecording.Visibility = Visibility.Collapsed;
             var videosLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
             captureFolder = videosLibrary.SaveFolder ?? ApplicationData.Current.LocalFolder;
-         
+
 
             DeviceInformationCollection j = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
 
@@ -173,7 +266,7 @@ namespace EssentialVideoRecorder
 
             if (j.Count == 0) //messagebox in all languages, no device.
             {
-               
+
                 NoCamera.Visibility = Visibility.Visible;
                 return;
             }
@@ -187,13 +280,14 @@ namespace EssentialVideoRecorder
                 foreach (DeviceInformation q in j)
                 {
                     nameThatCamera = q.Name;
-                    if(WhichDevice > 0)
+                    if (WhichDevice > 0)
                     {
-                        for(int v=0; v<WhichDevice; v++)
+                        for (int v = 0; v < WhichDevice; v++)
                         {
-                            if( nameThatCamera == dups[v]) { howManyCameras++; }
+                            if (nameThatCamera == dups[v]) { howManyCameras++; }
                         }
-                        if (howManyCameras == 0) { } else
+                        if (howManyCameras == 0) { }
+                        else
                         {
                             howManyCameras++;
                             nameThatCamera = nameThatCamera + '-' + howManyCameras.ToString();
@@ -204,13 +298,14 @@ namespace EssentialVideoRecorder
                     WhichDevice++;
                     ComboBoxItem comboBoxItem = new ComboBoxItem();
                     comboBoxItem.Content = nameThatCamera;
-                   
+
                     comboBoxItem.Tag = q;
                     CameraSource.Items.Add(comboBoxItem);
 
                 }
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
 
                 BadDevice.Visibility = Visibility.Visible;
 
@@ -231,16 +326,161 @@ namespace EssentialVideoRecorder
 
                 GetTheVideo.Source = _mediaCapture;
 
-                await _mediaCapture.StartPreviewAsync();
+                CheckIfStreamsAreIdentical();
 
-                PopulateSettingsComboBox();
+                MediaStreamType streamType;
+
+                streamType = MediaStreamType.VideoRecord;
+                PopulateStreamPropertiesUI(streamType, CameraSettings2);
+
+                //added to camera and settings initial setting
+                CameraSource.SelectedIndex = 0;
+                CameraSettings2.SelectedIndex = 0;
+                //await _mediaCapture.StartPreviewAsync();
+
+                // PopulateSettingsComboBox();
 
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
 
                 BadSetting.Visibility = Visibility.Visible;
             }
         }
+
+        private async void ComboBoxSettings_Changed(object sender, RoutedEventArgs e)
+        {
+            if ((!isRecording) && (CameraSettings2.SelectedIndex > -1))
+            {
+
+
+                ComboBoxItem selectedItem = (sender as ComboBox).SelectedItem as ComboBoxItem;
+                var encodingProperties = (selectedItem.Tag as StreamPropertiesHelper).EncodingProperties;
+              string grabResolution = selectedItem.Content.ToString();
+                Single width = Convert.ToSingle(grabResolution.Substring(0, grabResolution.IndexOf('x')));
+
+
+
+
+
+                Single height = Convert.ToSingle(grabResolution.Substring(grabResolution.IndexOf('x') + 1, grabResolution.IndexOf('[') - (grabResolution.IndexOf('x') + 2)));
+
+
+                Single multiplyer = height / width;
+                //Versatile.Width = Window.Current.Bounds.Width - 100;
+                //Versatile.Height = (Window.Current.Bounds.Width - 100) * multiplyer;
+                //Versatile.Width = width / 2;
+                // Versatile.Height = height / 2;
+
+
+            
+                await _mediaCapture.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.VideoPreview, encodingProperties);
+
+
+                Versatile.Width = Window.Current.Bounds.Width;
+                Versatile.Height = Window.Current.Bounds.Height;
+
+
+                /*var selectedItem = (sender as ComboBox).SelectedItem as ComboBoxItem;
+
+                Resolutions encoderize = selectedItem.Tag as Resolutions;
+
+
+                Versatile.Height = encoderize.Height;
+                Versatile.Width = encoderize.Width;*/
+
+
+
+                // await _mediaCapture.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.VideoPreview, encodingProperties);
+            }
+        }
+
+        //This is the original InitCamera for Alpha 5's, to be deleted if this Alpha 6 works.
+        /*  private async void InitCamera()
+
+          {
+              stopRecording.Visibility = Visibility.Collapsed;
+              var videosLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
+              captureFolder = videosLibrary.SaveFolder ?? ApplicationData.Current.LocalFolder;
+
+
+              DeviceInformationCollection j = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
+
+
+
+
+              var z = j.Count();
+
+              if (j.Count == 0) //messagebox in all languages, no device.
+              {
+
+                  NoCamera.Visibility = Visibility.Visible;
+                  return;
+              }
+
+              try
+              {
+                  string[] dups = new string[j.Count];
+                  int WhichDevice = 0;
+                  string nameThatCamera = "";
+                  int howManyCameras = 0;
+                  foreach (DeviceInformation q in j)
+                  {
+                      nameThatCamera = q.Name;
+                      if(WhichDevice > 0)
+                      {
+                          for(int v=0; v<WhichDevice; v++)
+                          {
+                              if( nameThatCamera == dups[v]) { howManyCameras++; }
+                          }
+                          if (howManyCameras == 0) { } else
+                          {
+                              howManyCameras++;
+                              nameThatCamera = nameThatCamera + '-' + howManyCameras.ToString();
+                          }
+                          howManyCameras = 0;
+                      }
+                      dups[WhichDevice] = q.Name;
+                      WhichDevice++;
+                      ComboBoxItem comboBoxItem = new ComboBoxItem();
+                      comboBoxItem.Content = nameThatCamera;
+
+                      comboBoxItem.Tag = q;
+                      CameraSource.Items.Add(comboBoxItem);
+
+                  }
+              }
+              catch (Exception e) {
+
+                  BadDevice.Visibility = Visibility.Visible;
+
+              }
+
+              try
+              {
+                  DeviceInformation gotCamera = (DeviceInformation)j.First();
+                  MediaCaptureInitializationSettings settings = new MediaCaptureInitializationSettings();
+                  settings.VideoDeviceId = gotCamera.Id;
+                  _mediaCapture = new MediaCapture();
+
+                  await _mediaCapture.InitializeAsync();
+                  _mediaCapture.Failed += _mediaCapture_Failed;
+
+                  _mediaCapture.RecordLimitationExceeded += MediaCapture_RecordLimitationExceeded;
+
+
+                  GetTheVideo.Source = _mediaCapture;
+
+                  await _mediaCapture.StartPreviewAsync();
+
+                  PopulateSettingsComboBox();
+
+              }
+              catch (Exception e) {
+
+                  BadSetting.Visibility = Visibility.Visible;
+              }
+          }*/
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
@@ -251,8 +491,8 @@ namespace EssentialVideoRecorder
         {
           
         }
-
-        private void ComboBoxSettings_Changed(object sender, RoutedEventArgs e)
+        //.from Alpha 5, to be deleted.
+       /* private void ComboBoxSettings_Changed(object sender, RoutedEventArgs e)
         {
             if ((!isRecording) && (CameraSettings.SelectedIndex > -1))
             {
@@ -268,8 +508,9 @@ namespace EssentialVideoRecorder
 
               // await _mediaCapture.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.VideoPreview, encodingProperties);
             }
-        }
-
+        }*/
+        // This also from Alpha 5
+        /*
         private void PopulateSettingsComboBox()
         {
             CameraSettings.Items.Clear();
@@ -294,7 +535,8 @@ namespace EssentialVideoRecorder
                 comboBoxItem.Tag = resolution;
                 CameraSettings.Items.Add(comboBoxItem);
             }
-        }
+        }*/
+
         private async void _mediaCapture_Failed(MediaCapture sender, MediaCaptureFailedEventArgs errorEventArgs)
         {
             try
@@ -321,7 +563,7 @@ namespace EssentialVideoRecorder
 
                 VideoName.IsEnabled = false;
                 GetFileName.IsEnabled = false;
-                CameraSettings.IsEnabled = false;
+                CameraSettings2.IsEnabled = false;
                 CameraSource.IsEnabled = false;
 
 
@@ -394,7 +636,7 @@ namespace EssentialVideoRecorder
                 await _mediaCapture.StopRecordAsync();
                 VideoName.IsEnabled = true;
                 GetFileName.IsEnabled = true;
-                CameraSettings.IsEnabled = true;
+                CameraSettings2.IsEnabled = true;
                 CameraSource.IsEnabled = true;
                 startRecording.Visibility = Visibility.Visible;
                 VideoName.Text = "Pick New File Name";
@@ -443,8 +685,8 @@ namespace EssentialVideoRecorder
         private void Reset_Tapped(object sender, TappedRoutedEventArgs e)
         {
 
-            Versatile.Height = 480;
-            Versatile.Width = 640;
+           // Versatile.Height = 480;
+            //Versatile.Width = 640;
             BadDevice.Visibility = Visibility.Collapsed;
             BadSetting.Visibility = Visibility.Collapsed;
             NoCamera.Visibility = Visibility.Collapsed;
@@ -452,7 +694,7 @@ namespace EssentialVideoRecorder
             ManyThanks.Visibility = Visibility.Collapsed;
             CameraSource.Items.Clear();
             InitCamera();
-            CameraSettings.SelectedIndex = -1;
+            //CameraSettings2.SelectedIndex = -1;
 
         }
 
@@ -464,7 +706,7 @@ namespace EssentialVideoRecorder
             GetFileName.Visibility = Visibility.Collapsed;
             startRecording.Visibility = Visibility.Collapsed;
             stopRecording.Visibility = Visibility.Collapsed;
-            CameraSettings.Visibility = Visibility.Collapsed;
+            CameraSettings2.Visibility = Visibility.Collapsed;
             BadBorder.Visibility = Visibility.Collapsed;
             CameraSource.Visibility = Visibility.Collapsed;
             Donator.Visibility = Visibility.Collapsed;
@@ -474,13 +716,13 @@ namespace EssentialVideoRecorder
             BadSetting.Visibility = Visibility.Collapsed;
             NoCamera.Visibility = Visibility.Collapsed;
             RecordLimit.Visibility = Visibility.Collapsed;
-            Info.Visibility = Visibility.Collapsed;
+            //Info.Visibility = Visibility.Collapsed;
             ManyThanks.Visibility = Visibility.Collapsed;
 
             VideoName.Width = 10;
             startRecording.Width = 10;
             stopRecording.Width = 10;
-            CameraSettings.Width = 10;
+            CameraSettings2.Width = 10;
             incognitoer = 1;
 
 
@@ -504,7 +746,7 @@ namespace EssentialVideoRecorder
                 VideoName.Visibility = Visibility.Visible;
                 GetFileName.Visibility = Visibility.Visible;
                 CameraSource.Visibility = Visibility.Visible;
-                Info.Visibility = Visibility.Visible;
+                //Info.Visibility = Visibility.Visible;
                 if (!isRecording)
                 {
                     startRecording.Visibility = Visibility.Visible;
@@ -514,18 +756,84 @@ namespace EssentialVideoRecorder
                     stopRecording.Visibility = Visibility.Visible;
                 }
                 
-                CameraSettings.Visibility = Visibility.Visible;
+                CameraSettings2.Visibility = Visibility.Visible;
                 BadBorder.Visibility = Visibility.Visible;
                 makeDonation.Visibility = Visibility.Visible;
 
                 VideoName.Width = 200;
                 startRecording.Width = 200;
                 stopRecording.Width = 200;
-                CameraSettings.Width = 250;
+                CameraSettings2.Width = 250;
             }
             if (incognitoer == 1) incognitoer = 2;
         }
 
+        private async void Devicechanged()
+        {
+            try
+            {
+
+                await _mediaCapture.StopPreviewAsync();
+
+                _mediaCapture.Dispose();
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+
+            }
+
+            try
+            {
+                //  int q = 1000;
+                //  do { q = 1000; do { q--; } while (q > 0); } while (CameraSource.Items.Count == 0); 
+
+                ComboBoxItem selectedItem = (ComboBoxItem)CameraSource.SelectedItem;
+
+                DeviceInformation gotCamera = selectedItem.Tag as DeviceInformation;
+
+                MediaCaptureInitializationSettings settings = new MediaCaptureInitializationSettings();
+                settings.VideoDeviceId = gotCamera.Id;
+                System.Diagnostics.Debug.WriteLine("Cam ID" + gotCamera.Id.ToString());
+                _mediaCapture = new MediaCapture();
+
+                await _mediaCapture.InitializeAsync(settings);
+                _mediaCapture.Failed += _mediaCapture_Failed;
+
+                _mediaCapture.RecordLimitationExceeded += MediaCapture_RecordLimitationExceeded;
+
+
+                GetTheVideo.Source = _mediaCapture;
+
+
+                MediaStreamType streamType;
+
+                CameraSettings2.Items.Clear();
+                streamType = MediaStreamType.VideoRecord;
+                PopulateStreamPropertiesUI(streamType, CameraSettings2);
+
+                //added to camera and settings initial setting
+                //CameraSource.SelectedIndex = 0;
+                CameraSettings2.SelectedIndex = 0;
+
+                await _mediaCapture.StartPreviewAsync();
+
+
+
+
+            }
+            catch (Exception x)
+            {
+
+            }
+
+        }
+
+
+
+        //alpha5 legacy code, to delete.
+        /*
         private async void Devicechanged()
         {
             try
@@ -569,7 +877,7 @@ namespace EssentialVideoRecorder
 
             }    
             
-        }
+        }*/
 
         private void makeDonation_Tapped(object sender, TappedRoutedEventArgs e)
         {

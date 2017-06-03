@@ -115,9 +115,11 @@
             <TextBox FontSize="14" Name="BadSetting" Background="Red" IsReadOnly="True" x:Uid="BadSetting" Text="There is a setting that is incompatable." Visibility="Collapsed" />
             <TextBox FontSize="14" Name="RecordLimit" Background="Red" IsReadOnly="True" x:Uid="RecordLimit" Text="There is a setting that is incompatable." Visibility="Collapsed" />
 
-            <ComboBox Name="CameraSettings" x:Uid="CameraSettingsCombo" PlaceholderText="Video Size" Width="250" Margin="0,42,0,0" SelectionChanged="ComboBoxSettings_Changed"  />
+           <!-- From Alpha 5<ComboBox Name="CameraSettings" x:Uid="CameraSettingsCombo" PlaceholderText="Video Size" Width="250" Margin="0,42,0,0" SelectionChanged="ComboBoxSettings_Changed"  />-->
+            <ComboBox Name="CameraSettings2" x:Uid="CameraSettingsCombo" PlaceholderText="Video Size" Width="250" Margin="0,42,0,0" SelectionChanged="ComboBoxSettings_Changed"  />
 
-           
+
+
 
             <ProgressRing x:Name="workingProgressRing"/>
             <Button x:Uid="MakeDonation" Template="{StaticResource HoveringButton}"  Margin="0,24,0,0" Width="200" Name="makeDonation" Tapped="makeDonation_Tapped">Make Donation</Button>
@@ -128,7 +130,7 @@
             </StackPanel>
             <TextBox Name="storeResult" Background="Red" Visibility="Collapsed"  />
             <TextBox x:Uid="ManyThanks" TextAlignment="Center" Name="ManyThanks" IsReadOnly="True"  Background="LawnGreen" Foreground="Black" Width="325" Visibility="Collapsed"  Text="Huh???"/>
-            <TextBox x:Uid="Reset-Info" Margin ="0,24,0,0"  TextAlignment="Center" Name="Info" IsReadOnly="True" Background="Goldenrod" Foreground="Black" Width="385" Visibility="Visible" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" ManipulationMode="None"   />
+          <!--From Alpha 5  <TextBox x:Uid="Reset-Info" Margin ="0,24,0,0"  TextAlignment="Center" Name="Info" IsReadOnly="True" Background="Goldenrod" Foreground="Black" Width="385" Visibility="Visible" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" ManipulationMode="None"   />-->
 
         </StackPanel>
     </Grid>
