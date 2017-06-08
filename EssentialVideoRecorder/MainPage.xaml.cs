@@ -58,6 +58,8 @@ namespace EssentialVideoRecorder
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        
        
         MediaCapture _mediaCapture;  //This is the basic capture that you pass to the xaml
         StorageFile videoFile = null;  // This is the file that it will record to.  Changeable by user.
@@ -350,37 +352,57 @@ namespace EssentialVideoRecorder
 
         private async void ComboBoxSettings_Changed(object sender, RoutedEventArgs e)
         {
-            if ((!isRecording) && (CameraSettings2.SelectedIndex > -1))
+
+            string errIsCommon = "noError";
+            BadSetting.Visibility = Visibility.Collapsed;
+
+            try {
+                if ((!isRecording) && (CameraSettings2.SelectedIndex > -1))
+                {
+
+             /*       if (!skipper)
+                    {
+                        skipper = !skipper;
+                        throw new Exception("Test Exception");
+                    }
+                    skipper = !skipper;
+                    */
+                    errIsCommon = "Reading Combo Settings";
+                    ComboBoxItem selectedItem = (sender as ComboBox).SelectedItem as ComboBoxItem;
+                    var encodingProperties = (selectedItem.Tag as StreamPropertiesHelper).EncodingProperties;
+
+                    /*
+
+                    string grabResolution = selectedItem.Content.ToString();
+                    Single width = Convert.ToSingle(grabResolution.Substring(0, grabResolution.IndexOf('x')));
+
+
+
+
+
+                    Single height = Convert.ToSingle(grabResolution.Substring(grabResolution.IndexOf('x') + 1, grabResolution.IndexOf('[') - (grabResolution.IndexOf('x') + 2)));
+
+
+                    Single multiplyer = height / width;
+                    //Versatile.Width = Window.Current.Bounds.Width - 100;
+                    //Versatile.Height = (Window.Current.Bounds.Width - 100) * multiplyer;
+                    //Versatile.Width = width / 2;
+                    // Versatile.Height = height / 2;
+
+
+                */
+                    errIsCommon = "MediaCapture Failure";
+                    await _mediaCapture.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.VideoPreview, encodingProperties);
+
+                    errIsCommon = "Window Sizing Error";
+                    Versatile.Width = Window.Current.Bounds.Width;
+                    Versatile.Height = Window.Current.Bounds.Height;
+                }
+            } catch(Exception ex)
             {
+                BadSetting.Visibility = Visibility.Visible;
 
-
-                ComboBoxItem selectedItem = (sender as ComboBox).SelectedItem as ComboBoxItem;
-                var encodingProperties = (selectedItem.Tag as StreamPropertiesHelper).EncodingProperties;
-              string grabResolution = selectedItem.Content.ToString();
-                Single width = Convert.ToSingle(grabResolution.Substring(0, grabResolution.IndexOf('x')));
-
-
-
-
-
-                Single height = Convert.ToSingle(grabResolution.Substring(grabResolution.IndexOf('x') + 1, grabResolution.IndexOf('[') - (grabResolution.IndexOf('x') + 2)));
-
-
-                Single multiplyer = height / width;
-                //Versatile.Width = Window.Current.Bounds.Width - 100;
-                //Versatile.Height = (Window.Current.Bounds.Width - 100) * multiplyer;
-                //Versatile.Width = width / 2;
-                // Versatile.Height = height / 2;
-
-
-            
-                await _mediaCapture.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.VideoPreview, encodingProperties);
-
-
-                Versatile.Width = Window.Current.Bounds.Width;
-                Versatile.Height = Window.Current.Bounds.Height;
-
-
+            }
                 /*var selectedItem = (sender as ComboBox).SelectedItem as ComboBoxItem;
 
                 Resolutions encoderize = selectedItem.Tag as Resolutions;
@@ -392,7 +414,7 @@ namespace EssentialVideoRecorder
 
 
                 // await _mediaCapture.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.VideoPreview, encodingProperties);
-            }
+            
         }
 
         //This is the original InitCamera for Alpha 5's, to be deleted if this Alpha 6 works.
