@@ -266,6 +266,8 @@ namespace EssentialVideoRecorder
 
             var z = j.Count();
 
+           var  Oz =  j.OrderBy(x => x.Name);
+
             if (j.Count == 0) //messagebox in all languages, no device.
             {
 
@@ -279,7 +281,7 @@ namespace EssentialVideoRecorder
                 int WhichDevice = 0;
                 string nameThatCamera = "";
                 int howManyCameras = 0;
-                foreach (DeviceInformation q in j)
+                foreach (DeviceInformation q in Oz)
                 {
                     nameThatCamera = q.Name;
                     if (WhichDevice > 0)
@@ -315,7 +317,10 @@ namespace EssentialVideoRecorder
 
             try
             {
-                DeviceInformation gotCamera = (DeviceInformation)j.First();
+
+                
+
+                DeviceInformation gotCamera = (DeviceInformation)Oz.First();
                 MediaCaptureInitializationSettings settings = new MediaCaptureInitializationSettings();
                 settings.VideoDeviceId = gotCamera.Id;
                 _mediaCapture = new MediaCapture();
