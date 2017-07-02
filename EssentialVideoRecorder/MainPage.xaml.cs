@@ -94,10 +94,12 @@ namespace EssentialVideoRecorder
 
         private void Current_SizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
         {
-           
+
+           // GetTheVideo.Width = e.Size.Width;
+            //GetTheVideo.Height = e.Size.Height;
 
             Versatile.Width = e.Size.Width;
-            Versatile.Height = e.Size.Height;
+           Versatile.Height = e.Size.Height;
 
 
         }
@@ -743,7 +745,7 @@ namespace EssentialVideoRecorder
             BadSetting.Visibility = Visibility.Collapsed;
             NoCamera.Visibility = Visibility.Collapsed;
             RecordLimit.Visibility = Visibility.Collapsed;
-            //Info.Visibility = Visibility.Collapsed;
+            HelpButton.Visibility = Visibility.Collapsed;
             ManyThanks.Visibility = Visibility.Collapsed;
 
             VideoName.Width = 10;
@@ -773,6 +775,7 @@ namespace EssentialVideoRecorder
                 VideoName.Visibility = Visibility.Visible;
                 GetFileName.Visibility = Visibility.Visible;
                 CameraSource.Visibility = Visibility.Visible;
+				HelpButton.Visibility = Visibility.Visible;
                 //Info.Visibility = Visibility.Visible;
                 if (!isRecording)
                 {
@@ -941,9 +944,14 @@ namespace EssentialVideoRecorder
             if (CameraSource.Items.Count == 0) return;
             else Devicechanged();
         }
-    }
 
-    class Resolutions
+		private void HelpButton_Tapped(object sender, TappedRoutedEventArgs e)
+		{
+			Frame.Navigate(typeof(Help));
+		}
+	}
+
+	class Resolutions
     {
         public string ToSee;
         public int Width;

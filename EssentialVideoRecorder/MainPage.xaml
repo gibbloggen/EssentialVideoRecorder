@@ -83,14 +83,15 @@
         </Grid.Resources>
 
 
-        <CaptureElement Name="GetTheVideo" Stretch="Uniform"></CaptureElement>
+        <CaptureElement Name="GetTheVideo" Stretch="UniformToFill"></CaptureElement>
 
         <StackPanel  Orientation="Vertical" Margin="21,25,0,0">
             <StackPanel Orientation="Horizontal">
                 <Button Name="Reset" x:Uid="ResetButton" Template="{StaticResource HoveringButton}" Width="95" Content="Reset" Tapped="Reset_Tapped"/>
                 <Button Name="Incognito" x:Uid="IncognitoButton" Template="{StaticResource HoveringButton}" Width="85" Content="Incognito" Tapped="Incognito_Tapped"/>
-               
-            </StackPanel>
+				<Button x:Name="HelpButton" x:Uid="HelpButton" Template="{StaticResource HoveringButton}" Width="85" Content="Help" Tapped="HelpButton_Tapped"/>
+
+			</StackPanel>
             <Button x:Uid="StartRecordingButton" Template="{StaticResource HoveringButton}" Margin="0,8,0,8" Width="200" Name="startRecording"  Tapped="startRecording_Tapped">Start Recording</Button>
             <Button x:Uid="StopRecordingButton" Template="{StaticResource HoveringButton}"  Margin="0,8,0,8" Width="200" Name="stopRecording" Tapped="stopRecording_Tapped">Stop Recording</Button>
 
