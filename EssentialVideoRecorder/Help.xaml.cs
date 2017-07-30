@@ -50,6 +50,9 @@ namespace EssentialVideoRecorder
 
 		private void BackToProgram_Tapped(object sender, TappedRoutedEventArgs e)
 		{
+			Uri j = new Uri("http://asdfkljasdasdfljhasldfl.cat/");
+			HelpView.Navigate(j);
+
 			Frame.Navigate(typeof(MainPage));
 
 
@@ -69,6 +72,8 @@ namespace EssentialVideoRecorder
 
 		private void Current_Closed(object sender, EventArgs e)
 		{
+			Uri j = new Uri("http://asdfkljasdasdfljhasldfl.cat/");
+			HelpView.Navigate(j);
 
 			Frame.Navigate(typeof(MainPage));
 		}

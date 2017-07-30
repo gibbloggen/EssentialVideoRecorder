@@ -111,12 +111,12 @@
 
             <ComboBox x:Name="CameraSource"  x:Uid="CameraSourceCombo"   PlaceholderText="Video Devices" Width="250" Margin="0,42,0,0" SelectionChanged="Devicechanged_Changed2"  />
 
-            <TextBox FontSize="14" Name="NoCamera" Background="Red" IsReadOnly="True" x:Uid="NoCamera" Text="No Camera Found, Camera Required" Visibility="Collapsed" />
-            <TextBox FontSize="14" Name="BadDevice" Background="Red" IsReadOnly="True"  x:Uid="BadDevice" Text="An Incompatable Video Source was found." Visibility="Collapsed" />
-            <TextBox FontSize="14" Name="RecordLimit" Background="Red" IsReadOnly="True" x:Uid="RecordLimit" Text="There is a setting that is incompatable." Visibility="Collapsed" />
+			<TextBox FontSize="14" HorizontalAlignment="Left" Name="NoCamera" Background="Red" IsReadOnly="True" Width ="375" x:Uid="NoCamera" Text="No Camera Found, Camera Required" Visibility="Collapsed" />
+			<TextBox FontSize="14" HorizontalAlignment="Left" Name="BadDevice" Background="Red" IsReadOnly="True" Width ="375"  x:Uid="BadDevice" Text="An Incompatable Video Source was found." Visibility="Collapsed" />
+			<TextBox FontSize="14" HorizontalAlignment="Left" Name="RecordLimit" Background="Red" IsReadOnly="True" Width ="375" x:Uid="RecordLimit" Text="There is a setting that is incompatable." Visibility="Collapsed" />
             <!-- From Alpha 5<ComboBox Name="CameraSettings" x:Uid="CameraSettingsCombo" PlaceholderText="Video Size" Width="250" Margin="0,42,0,0" SelectionChanged="ComboBoxSettings_Changed"  />-->
             <ComboBox Name="CameraSettings2" x:Uid="CameraSettingsCombo" PlaceholderText="Video Size" Width="250" Margin="0,42,0,0" SelectionChanged="ComboBoxSettings_Changed"  />
-            <TextBox FontSize="14" Name="BadSetting" Background="Red" IsReadOnly="True" x:Uid="BadSetting" Text="There is a setting that is incompatable." Visibility="Collapsed" />
+			<TextBox FontSize="14" Name="BadSetting" HorizontalAlignment="Left" Background="Red" IsReadOnly="True" Width ="375" x:Uid="BadSetting" Text="There is a setting that is incompatable." Visibility="Collapsed" />
 
 
 
@@ -128,7 +128,7 @@
                     <Button x:Uid="Donation2" Template="{StaticResource HoveringButton}"  Margin="0,22,12,0" Width="54" Name="Donation2" Tapped="Donation2_Tapped">$2</Button>
                     <Button x:Uid="Donation3" Template="{StaticResource HoveringButton}"  Margin="0,22,12,0" Width="54" Name="Donation3" Tapped="Donation3_Tapped">$3</Button>
             </StackPanel>
-            <TextBox Name="storeResult" Background="Red" Visibility="Collapsed"  />
+			<TextBox Name="storeResult" Background="Red" Visibility="Collapsed" HorizontalAlignment="Left" Width="325" />
             <TextBox x:Uid="ManyThanks" TextAlignment="Center" Name="ManyThanks" IsReadOnly="True"  Background="LawnGreen" Foreground="Black" Width="325" Visibility="Collapsed"  Text="Huh???"/>
           <!--From Alpha 5  <TextBox x:Uid="Reset-Info" Margin ="0,24,0,0"  TextAlignment="Center" Name="Info" IsReadOnly="True" Background="Goldenrod" Foreground="Black" Width="385" Visibility="Visible" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" ManipulationMode="None"   />-->
 
